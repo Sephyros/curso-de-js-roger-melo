@@ -12,10 +12,15 @@
 
   "Minhas 3 séries favoritas são: SÉRIE_01, SÉRIE_02 e SÉRIE_03."
 */
-const my3FavoriteTVShows = ["Game of Thrones", "Suits", "Breaking Bad"];
-const sentence = `${my3FavoriteTVShows
-  .slice(0, my3FavoriteTVShows.length - 1)
-  .join(", ")} e ${my3FavoriteTVShows.slice(my3FavoriteTVShows.length - 1)}`;
+const my3FavoriteTVShows = [
+  "Game of Thrones",
+  "Breaking Bad",
+  "The Big Bang Theory",
+];
+const lastFavoriteTVShow = my3FavoriteTVShows[my3FavoriteTVShows.length - 1];
+const sentence = `Minhas 3 séries favoritas são: ${my3FavoriteTVShows
+  .join(", ")
+  .replace(", " + lastFavoriteTVShow, " e " + lastFavoriteTVShow)}.`;
 // console.log(sentence);
 
 /*
@@ -97,8 +102,8 @@ const falsyValues = [0, "", false, "", ``, null, undefined, NaN];
   - Você sabe por que essa conversão resultou em true?
 */
 
-const crazyOperation = null + 1
-const crazyConversion = Boolean(crazyOperation)
+const crazyOperation = null + 1;
+const crazyConversion = Boolean(crazyOperation);
 // console.log(crazyConversion)
 
 /*
@@ -114,9 +119,9 @@ const crazyConversion = Boolean(crazyOperation)
   é: BOOLEAN."
 */
 
-const ages = [31, 82, 61, 11]
-const agesSum = ages[0] + ages[2]
-const sumValidation = agesSum <= 92
+const ages = [31, 82, 61, 11];
+const agesSum = ages[0] + ages[2];
+const sumValidation = agesSum <= 92;
 // console.log(`A soma entre o 1º e o 3º item de "ages" é menor ou igual a 92. Essa afirmação é: ${sumValidation}.`)
 
 /*
@@ -128,7 +133,7 @@ const sumValidation = agesSum <= 92
   - Exiba a "isNotAString" no console.
 */
 
-const isNotAString = typeof randomTVShow !== typeof String()
+const isNotAString = typeof randomTVShow !== typeof String();
 // console.log(isNotAString)
 
 /*
@@ -140,4 +145,4 @@ const isNotAString = typeof randomTVShow !== typeof String()
 */
 
 const evenNumbers = [0, 2, 4, 6, 8, 10];
-console.log(Boolean(evenNumbers.indexOf(8)))
+console.log(Boolean(evenNumbers.indexOf(8) !== -1));
