@@ -22,7 +22,7 @@
 */
 
 /* let i = 0
-while (i < 6) {
+while (i <= 5) {
   console.log(i)
   i++
 } */
@@ -33,7 +33,7 @@ while (i < 6) {
   - Utilizando um for loop, faça o mesmo que foi pedido no exercício 01.
 */
 
-/* for (let i = 0; i < 6; i++) {
+/* for (let i = 0; i <= 5; i++) {
   console.log(i);
 } */
 
@@ -65,7 +65,7 @@ while (i < 6) {
 const cities = ["São Paulo", "Rio de Janeiro", "Minas Gerais"];
 let upperCaseCities = [];
 for (let i = 0; i < cities.length; i++) {
-  upperCaseCities[i] = cities[i].toUpperCase();
+  upperCaseCities.push(cities[i].toUpperCase());
 }
 // console.log(upperCaseCities);
 
@@ -77,12 +77,12 @@ for (let i = 0; i < cities.length; i++) {
   - O template deve ser exibido apenas uma vez no console e o resultado deve ser:
     <li>João Grilo</li><li>Chicó</li><li>Rosinha</li>
 */
-let htmlTemplate = ''
+let HTMLTemplate = ''
 const names = ["João Grilo", "Chicó", "Rosinha"];
 for (let i = 0; i < names.length; i++) {
-  htmlTemplate += `<li>${names[i]}</li>`
+  HTMLTemplate += `<li>${names[i]}</li>`
 }
-// console.log(htmlTemplate)
+// console.log(HTMLTemplate)
 
 /*
   06 - Comente o console.log acima e:
