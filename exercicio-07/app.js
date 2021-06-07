@@ -35,14 +35,16 @@ if (!animals.includes("leão")) {
 
 const randomNumbers = [59, 61, 73, 57, 35, 73, 21, 87, 43];
 let sum = null;
-
+const limit = 300;
 for (let i = 0; i < randomNumbers.length; i++) {
-  sum += randomNumbers[i];
-  if (sum >= 400) {
+  if (sum > limit) {
+    console.log(
+      `A soma ultrapassou ${limit}. Até aqui, o valor atual é ${sum}.`
+    );
     break;
   }
+  sum += randomNumbers[i];
 }
-console.log(`A soma ultrapassou 400. Até aqui, o valor atual é ${sum}.`);
 
 /*
   04
@@ -64,14 +66,17 @@ const sentence = [
   "sabedoria.",
 ];
 
-const word = [];
+let newSentence = "";
+
 for (let i = 0; i < sentence.length; i++) {
-  if (sentence[i] === "certeza") {
+  const word = sentence[i];
+
+  if (word === "certeza") {
     continue;
   }
-  word.push(sentence[i]);
+  newSentence += `${word} `;
 }
-console.log(word.join(" "));
+console.log(newSentence);
 
 /*
   05
@@ -110,10 +115,10 @@ const randomValues = [
   null,
 ];
 
-let randomValuesBooleanCount = null;
+let booleandAmount = null;
 let iterationCount = null;
-const randomValuesStrings = [];
-let foundStringsCounter = null;
+const firstFourStrings = [];
+let foundStringsCounter = 0;
 
 for (let i = 0; i < randomValues.length; i++) {
   const item = randomValues[i];
@@ -124,11 +129,11 @@ for (let i = 0; i < randomValues.length; i++) {
 
   switch (typeof item) {
     case "string":
-      randomValuesStrings.push(item);
+      firstFourStrings.push(item);
       foundStringsCounter++;
       break;
     case "boolean":
-      randomValuesBooleanCount++;
+      booleandAmount++;
       break;
     default:
       break;
@@ -136,9 +141,14 @@ for (let i = 0; i < randomValues.length; i++) {
   iterationCount++;
 }
 
+const lastItem = firstFourStrings[firstFourStrings.length - 1];
+const fourStrings = firstFourStrings
+  .join(", ")
+  .replace(`, ${lastItem}`, ` e ${lastItem}`);
+
 console.log(`3 informações sobre o array randomValues:
-  - As primeiras 4 strings são ${randomValuesStrings.join(", ")};
-  - Até que as primeiras 4 strings fossem iteradas, ${randomValuesBooleanCount} booleans foram iterados;
+  - As primeiras 4 strings são ${fourStrings};
+  - Até que as primeiras 4 strings fossem iteradas, ${booleandAmount} booleans foram iterados;
   - O array foi iterado por ${iterationCount} vezes.`);
 
 /*
@@ -162,26 +172,27 @@ console.log(`3 informações sobre o array randomValues:
 */
 
 const drinkType = "suco";
+let drinkMessage = null;
 
 switch (drinkType) {
   case "água":
-    console.log(
-      "Substância química cujas moléculas são formadas por dois átomos de hidrogênio e um de oxigênio."
-    );
+    drinkMessage =
+      "Substância química cujas moléculas são formadas por dois átomos de hidrogênio e um de oxigênio.";
     break;
   case "refrigerante":
-    console.log(
-      "Bebida não alcoólica e não fermentada, fabricada industrialmente, à base de água mineral e açúcar."
-    );
+    drinkMessage =
+      "Bebida não alcoólica e não fermentada, fabricada industrialmente, à base de água mineral e açúcar.";
     break;
   case "suco":
-    console.log("Bebida produzida do líquido extraído de frutos.");
+    drinkMessage = "Bebida produzida do líquido extraído de frutos.";
     break;
 
   default:
-    console.log("Bebida desconhecida.");
+    drinkMessage = "Bebida desconhecida.";
     break;
 }
+
+console.log(drinkMessage);
 /*
   07
 
@@ -190,16 +201,19 @@ switch (drinkType) {
     para testar o switch que você escreveu.
 */
 
-const a = 0;
+const number = 0;
+const numberMessage = 'O valor de "number" é';
+let numberMessagePresentation = "";
 
-switch (a) {
+switch (number) {
   case 0:
-    console.log(`O valor de "a" é ${a}`);
+    numberMessagePresentation = `${numberMessage} ${number}`;
     break;
   case 1:
-    console.log(`O valor de "a" é ${a}`);
+    numberMessagePresentation = `${numberMessage} ${number}`;
     break;
   default:
-    console.log('O valor de "a" é qualquer número, exceto 0 e 1');
+    numberMessagePresentation = `${numberMessage} qualquer número, exceto 0 e 1`;
     break;
 }
+console.log(numberMessagePresentation);
