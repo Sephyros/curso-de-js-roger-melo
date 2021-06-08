@@ -6,8 +6,8 @@
   - Previna que esses parâmetros recebam undefined;
   - Exiba o resultado no console, sem inserir um console.log() dentro da função.
 */
-function multiply(x = 1, y = 1) {
-  return x * y;
+function multiply(firstNumber = 1, secondNumber = 1) {
+  return firstNumber * secondNumber;
 }
 console.log(multiply(2, 3));
 
@@ -19,8 +19,8 @@ console.log(multiply(2, 3));
     2 números.
 */
 
-const division = function (x = 1, y = 1) {
-  return x / y;
+const division = function (firstNumber = 1, secondNumber = 1) {
+  return firstNumber / secondNumber;
 };
 console.log(division(6, 2));
 
@@ -73,16 +73,21 @@ const millennialWords = [
   "fail",
 ];
 
-function convertToUpperCase(wordArray) {
+function convertToUpperCase(wordArray = []) {
   const newWordArray = [];
+
   for (let i = 0; i < wordArray.length; i++) {
     const word = wordArray[i];
-    newWordArray.push(word.toUpperCase());
+    const wordInUpperCase = word.toUpperCase();
+    newWordArray.push(wordInUpperCase);
   }
   return newWordArray;
 }
 
-console.log(convertToUpperCase(millennialWords));
+const milleniaWordsInUpperCase = convertToUpperCase(millennialWords);
+
+console.log(milleniaWordsInUpperCase);
+
 /*
   05
 
@@ -96,22 +101,25 @@ console.log(convertToUpperCase(millennialWords));
 
 const randomNumbers = [-2, 93, 34, -1, 1, 93, 11, -7, 47, -3];
 
-function isPositive(number) {
-  return number >= 0;
+function isPositive(number = 0) {
+  return number > 0;
 }
 
 const positiveArray = [];
 for (let i = 0; i < randomNumbers.length; i++) {
   const number = randomNumbers[i];
-  if (isPositive(number)) {
+  const isPositiveNumber = isPositive(number);
+
+  if (isPositiveNumber) {
     positiveArray.push(number);
   }
 }
+const totalNumbers = randomNumbers.length;
+const positiveNumbersCounter = positiveArray.length;
+const negativeNumbersCounter = randomNumbers.length - positiveArray.length;
 
 console.log(
-  `O array "randomNumbers" possui ${randomNumbers.length} números, sendo ${
-    positiveArray.length
-  } positivos e ${randomNumbers.length - positiveArray.length} negativos.`
+  `O array "randomNumbers" possui ${totalNumbers} números, sendo ${positiveNumbersCounter} positivos e ${negativeNumbersCounter} negativos.`
 );
 
 /*
@@ -124,19 +132,25 @@ console.log(
     função.
 */
 
-const getOddNumbers = function (array) {
+const getOddNumbers = function (array = []) {
   const oddNumbers = [];
+
   for (let i = 0; i < array.length; i++) {
     const number = array[i];
-    if (number % 2 === 1) {
+    const isOddNumber = number % 2 === 1;
+
+    if (isOddNumber) {
       oddNumbers.push(number);
     }
   }
   return oddNumbers;
 };
-console.log(
-  getOddNumbers([83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42])
-);
+
+const oddNumbers = getOddNumbers([
+  83, 52, 31, 73, 98, 37, 61, 56, 12, 24, 35, 3, 34, 80, 42,
+]);
+
+console.log(oddNumbers);
 
 /*
   07
