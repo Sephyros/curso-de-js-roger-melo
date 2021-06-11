@@ -29,8 +29,8 @@ console.log(convertToString(1203));
     recebida por parâmetro possui.
 */
 
-const Length = (string) => string.length;
-console.log(Length("Hello World!"));
+const length = (string) => string.length;
+console.log(length("Hello World!"));
 
 /*
   03
@@ -43,18 +43,8 @@ console.log(Length("Hello World!"));
 */
 
 const toLowerCase = (string) => {
-  let newString = "";
-  for (let i = 0; i < string.length; i++) {
-    const element = string[i];
-    newString += element.toLowerCase();
-  }
-  return newString;
+  return string.toLowerCase();
 };
-
-// Versão minimalista xD
-/* const toLowerCase = (string) => {
-  return string.toLowerCase()
-}; */
 
 console.log(
   toLowerCase("CHOCOTONE E OVO DE PÁSCOA JUNTOS NO MERCADO EM PLENO FEVEREIRO")
@@ -108,7 +98,8 @@ console.log(concatenateArrays(firstArray, secondArray));
 */
 
 const removeLastItem = (array) => {
-  return array.slice(0, array.length - 1);
+  array.pop();
+  return array;
 };
 const myGames = [
   "Satisfactory",
@@ -126,7 +117,7 @@ console.log(removeLastItem(myGames));
     invocação é null.
 */
 
-const isNull = (value) => typeof value === null;
+const isNull = (value) => value === null;
 console.log(isNull(null));
 
 /*
@@ -140,13 +131,8 @@ console.log(isNull(null));
     foi exibido.
 */
 
-const callbackCaller = (callback) => {
-  const stringName = "Leonardo";
-  callback(stringName);
-};
-
-const showName = (name) => console.log(name);
-
+const callbackCaller = (callback) => callback();
+const showName = () => console.log("Leonardo");
 callbackCaller(showName);
 
 /*
@@ -160,14 +146,13 @@ callbackCaller(showName);
     resulte no triplo de 33.
 */
 
-const callbacker = (callback) => {
-  let value = 33;
-  callback(value);
+const callCallback = (value, callback) => {
+  return callback(value);
 };
 
-const triplify = (number) => console.log(number * 3);
+const triplify = (number) => number * 3;
 
-callbacker(triplify);
+console.log(callCallback(33, triplify));
 
 /*
   11
@@ -179,10 +164,14 @@ callbacker(triplify);
 */
 
 const numbers = [1, 2, 3];
-numbers.forEach((item, index, array) => {
+
+const showNumbersInfo = (item, index, array) => {
   const itemPosition = index + 1;
-  console.log(`O ${itemPosition}º item do array ${array} é ${item}.`);
-});
+  const items = array.join(", ");
+  console.log(`O ${itemPosition}º item do array [${items}] é ${item}.`);
+};
+
+numbers.forEach(showNumbersInfo);
 
 /*
   12
@@ -195,9 +184,15 @@ numbers.forEach((item, index, array) => {
 const letters = ["v", "e", "p"];
 let lettersCopy = [];
 
-for (let i = 0; i < letters.length; i++) {
+/* for (let i = 0; i < letters.length; i++) {
   lettersCopy.push(letters[i]);
-}
+} */
+
+letters.forEach((letter) => {
+  lettersCopy.push(letter);
+});
+
+console.log(lettersCopy);
 
 /*
   13
@@ -228,9 +223,11 @@ const review = [
 
 let paragraphs = "";
 
-review.forEach((paragraph) => {
-  paragraphs += `<p>${paragraph}<p/>`;
-});
+const createParagraphs = (paragraph) => {
+  paragraphs += `<p>${paragraph}</p>`;
+};
+
+review.forEach(createParagraphs);
 
 section.innerHTML = paragraphs;
 
@@ -258,19 +255,21 @@ section.innerHTML = paragraphs;
 const likes = ["Raziel", "Kain", "Janos", "Vorador", "Malek", "Moebius"];
 
 const likePresentation = (likesList) => {
+  const firstName = likesList[0];
+  const secondName = likesList[1];
+  const thirdName = likesList[2];
+  const hiddenNames = likesList[3];
   switch (likesList.length) {
     case 0:
       return "Ninguém curtiu isso";
     case 1:
-      return `${likesList[0]} curtiu isso`;
+      return `${firstName} curtiu isso`;
     case 2:
-      return `${likesList[0]} e ${likesList[1]} curtiram isso`;
+      return `${firstName} e ${secondName} curtiram isso`;
     case 3:
-      return `${likesList[0]}, ${likesList[1]} e ${likesList[2]} curtiram isso`;
+      return `${firstName}, ${secondName} e ${thirdName} curtiram isso`;
     default:
-      return `${likesList[0]}, ${likesList[1]} e mais ${
-        likesList.length - 2
-      } pessoas curtiram isso`;
+      return `${firstName}, ${secondName} e mais ${hiddenNames} pessoas curtiram isso`;
   }
 };
 
