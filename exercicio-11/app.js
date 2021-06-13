@@ -5,6 +5,8 @@
   - Ela deve ter um escopo global.
 */
 
+const name = "Leonardo";
+
 /*
   02
 
@@ -18,6 +20,16 @@
     defined" será exibido no console;
   - Você sabe por que isso aconteceu?
 */
+
+function showAge() {
+  let age = 32;
+  return console.log(age);
+}
+
+showAge();
+/* Devido a variável age ter sido definida dentro do escopo da função showAge() qualquer
+tentativa de retorno de seu valor fora do escopo resulta em erro */
+// console.log(age);
 
 /*
   03
@@ -37,11 +49,36 @@
       "O NOME_DO_CARRO está disponível nas cores COR_01, COR_02 e COR_03".
 */
 
+let car = {
+  name: "Herbie",
+  brand: "Volkswagen",
+  colors: ["branco pérola (código VW L87)", "vermelho", "azul"],
+  isRunning: false,
+  run() {
+    this.isRunning = true;
+    return `O ${this.name} está em movimento`;
+  },
+  stop() {
+    this.isRunning = false;
+    return `O ${this.name}  está parado`;
+  },
+  getColorsMessage() {
+    const lastColor = this.colors[this.colors.length - 1];
+    const showColors = this.colors
+      .join(", ")
+      .replace(`, ${lastColor}`, ` e ${lastColor}`);
+
+    return `O ${this.name} está disponível nas cores ${showColors}`;
+  },
+};
+
 /*
   04
 
   - Faça o carro andar e exiba no console se ele realmente está em movimento.
 */
+
+console.log(car.run(), `Está andando? ${car.isRunning}`);
 
 /*
   05
@@ -49,11 +86,15 @@
   - Faça o carro parar e exiba no console se ele realmente está parado.
 */
 
+console.log(car.stop(), `Está andando? ${car.isRunning}`);
+
 /*
   06
 
   - Exiba, no console, a mensagem com as cores do carro.
 */
+
+console.log(car.getColorsMessage());
 
 /*
   07
@@ -61,3 +102,5 @@
   - Exiba, no console, a mensagem "O carro é um MARCA_DO_CARRO NOME_DO_CARRO";
   - Utilize a notação de colchetes para acessar as propriedades do carro.
 */
+
+console.log(`O carro é um ${car["brand"]} ${car["name"]}`);
