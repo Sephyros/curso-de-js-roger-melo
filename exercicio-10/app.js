@@ -61,10 +61,10 @@ console.log(cat.age);
     adicionado.
 */
 
-const addFriend = function (newFriendName) {
-  cat.bestFriends.push(newFriendName);
+const addFriend = function (newFriendName, object) {
+  object.bestFriends.push(newFriendName);
 };
-addFriend("Tifa Lockhart");
+addFriend("Tifa Lockhart", cat);
 console.log(cat.bestFriends);
 
 /*
@@ -80,7 +80,8 @@ const addCatColor = function (newColor) {
   cat["color"] += `/${newColor}`;
 };
 addCatColor("White");
-console.log(cat["color"]);
+const colorProperty = "color";
+console.log(cat[colorProperty]);
 
 /*
   06
@@ -90,9 +91,7 @@ console.log(cat["color"]);
   - Utilize a função para exibir no console se "cat" é um objeto.
 */
 
-const isAnObject = (thingToBeTested) => {
-  return typeof thingToBeTested === "object";
-};
+const isAnObject = (thingToBeTested) => typeof thingToBeTested === "object";
 console.log(isAnObject(cat));
 
 /*
@@ -115,13 +114,13 @@ let dog = {
   },
 };
 
-const dogMessage = () => {
+const getAgeMessage = (cat, dog) => {
   return `A soma das idades de ${cat.name} e ${dog.name} é ${
     cat.age + dog.age
   }.`;
 };
 
-console.log(dogMessage());
+console.log(getAgeMessage(cat, dog));
 
 /*
   08
@@ -159,18 +158,14 @@ console.log(isAnSUV("Ford EcoSport"));
 */
 
 const testValue = function (type) {
-  switch (type) {
-    case null:
-      return "Seta, explicitamente, uma variável sem valor.";
-    case undefined:
-      return "Representa um valor não-setado.";
-    case "object":
-      return "Arrays, Datas, Objetos literais, Funções, etc.";
-    default:
-      break;
-  }
+  const obj = {
+    null: "Seta, explicitamente, uma variável sem valor.",
+    undefined: "Representa um valor não-setado.",
+    object: "Arrays, Datas, Objetos literais, Funções, etc.",
+  };
+  return obj[type];
 };
 
-console.log(testValue(null));
-console.log(testValue(undefined));
+console.log(testValue("null"));
+console.log(testValue("undefined"));
 console.log(testValue("object"));
