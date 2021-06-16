@@ -27,16 +27,16 @@ const best2019Movies = [
   { title: "A Vida Invisível", directedBy: "Karim Aïnouz" },
 ];
 
-const showMoviesInfo = (moviesArray) => {
-  let moviesInfo = "";
-  moviesArray.forEach((movie) => {
-    moviesInfo = `${moviesInfo}
+let message = "Segundo o site Omelete, os melhores filmes de 2019 são:";
+
+const generateMovieMessage = (movie) => {
+  message += `
   - ${movie.title}, dirigido por ${movie.directedBy}`;
-  });
-  return `Segundo o site Omelete, os melhores filmes de 2019 são:${moviesInfo}`;
 };
 
-console.log(showMoviesInfo(best2019Movies));
+best2019Movies.forEach(generateMovieMessage);
+
+console.log(message);
 
 /*
   02
@@ -75,16 +75,15 @@ const youtubeUser = {
     },
     country: "Brasil",
   },
-  showRecentVideos() {
-    let recentVideosList = "";
+  getRecentVideos() {
+    console.log(`Vídeos recentes de ${this.name}:`);
     this.videos.recentVideos.forEach((video) => {
-      recentVideosList += `${video.title}\n`;
+      console.log(video.title);
     });
-    return `Vídeos recentes de ${this.name}:\n${recentVideosList}`;
   },
 };
 
-console.log(youtubeUser.showRecentVideos());
+youtubeUser.getRecentVideos();
 
 /*
   03
@@ -122,7 +121,7 @@ console.log(Math.round(secondNumber));
 */
 
 const thirdNumber = 8.9;
-console.log(Math.round(thirdNumber));
+console.log(Math.floor(thirdNumber));
 
 /*
   07
