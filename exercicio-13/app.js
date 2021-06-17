@@ -12,9 +12,12 @@ const getCatInfo = () => {
   const name = "Marcos";
   let age = 3;
   const color = "Cinza";
+  return { name, age, color };
 };
 
-// console.log(`${name} é um gato ${color} de ${age} anos.`)
+const { name, color, age } = getCatInfo();
+
+console.log(`${name} é um gato ${color} de ${age} anos.`);
 
 /*
   02
@@ -49,7 +52,9 @@ external();
 
 let randomNumbers = [3, 2, 1];
 
-console.log(randomNumbers.reverse());
+randomNumbers.reverse();
+
+console.log(randomNumbers);
 
 /*
   04
@@ -66,7 +71,9 @@ let crazyArray = [
   },
   [5, 96, 53],
 ];
+
 crazyArray.shift();
+
 console.log(crazyArray);
 
 /*
@@ -86,7 +93,9 @@ const dogs = [
   { name: "Xica", age: 6, gender: "Female", breed: "Chihuahua" },
 ];
 
-console.log(dogs.find((dog) => dog.name === "Zequinha"));
+const zequinha = dogs.find((dog) => dog.name === "Zequinha");
+
+console.log(zequinha);
 
 /*
   06
@@ -120,7 +129,7 @@ console.log(dogs.find((dog) => dog.name === "Zequinha"));
   </section>
 */
 
-const title = document.getElementsByClassName("main-title")[0];
+const title = document.querySelector(".main-title");
 console.log(title);
 
 /*
@@ -131,5 +140,6 @@ console.log(title);
   - Exiba esse NodeList no console.
 */
 // Não lembro como receber um nodelist pela classe diretamente. ou consigo atraves da tag ou um html collection atraves da classe, mas ambos não, a nao ser que converta mas ai foge do proposito.
-const secundaryTitles = document.getElementsByTagName("h2");
+const secundaryTitles = document.querySelectorAll("h2");
+
 console.log(secundaryTitles);
