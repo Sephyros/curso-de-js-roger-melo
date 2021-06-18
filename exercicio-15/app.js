@@ -6,7 +6,11 @@
   - Exiba no console os elementos filhos da ul com a classe já inserida.
 */
 
-
+const ul = document.querySelector("ul");
+Array.from(ul.children).forEach((li) => {
+  li.classList.add("video");
+  console.log(li);
+});
 
 /*
   02
@@ -15,7 +19,8 @@
     e exiba-o no console;
 */
 
-
+const h2 = document.querySelector("h2");
+console.log(h2.parentElement);
 
 /*
   03
@@ -23,7 +28,8 @@
   - Descubra quem é o próximo elemento irmão do h1 e exiba-o no console;
 */
 
-
+const h1 = document.querySelector("h1");
+console.log(h1.nextElementSibling);
 
 /*
   04
@@ -31,7 +37,7 @@
   - Descubra quem é o irmão anterior da ul e exiba-o no console;
 */
 
-
+console.log(ul.previousElementSibling);
 
 /*
   05
@@ -40,7 +46,11 @@
     exibida no console.
 */
 
-
+Array.from(ul.children).forEach((li) => {
+  li.addEventListener("click", (event) => {
+    console.log(event.target);
+  });
+});
 
 /*
   06
@@ -49,16 +59,29 @@
   - Cada nome deve estar dentro de uma li.
 */
 
-const videos = [{
-  name: 'Como o promise all funciona | JavaScript',
-  length: '00:01:52'
-}, {
-  name: 'Como refatorar um for loop | JavaScript',
-  length: '00:04:18'
-}, {
-  name: 'Como fazer requisições HTTP com o método fetch | JavaScript',
-  length: '00:02:55'
-}]
+const videos = [
+  {
+    name: "Como o promise all funciona | JavaScript",
+    length: "00:01:52",
+  },
+  {
+    name: "Como refatorar um for loop | JavaScript",
+    length: "00:04:18",
+  },
+  {
+    name: "Como fazer requisições HTTP com o método fetch | JavaScript",
+    length: "00:02:55",
+  },
+];
+
+const button = document.querySelector("button");
+button.addEventListener("click", () => {
+  videos.forEach((video) => {
+    const li = document.createElement("li");
+    li.innerText = video.name;
+    ul.appendChild(li);
+  });
+});
 
 /*
   07
@@ -66,3 +89,10 @@ const videos = [{
   - Se um clique no h1 acontecer, faça com que todos os elementos dentro do body 
     sejam removidos.
 */
+
+h1.addEventListener("click", () => {
+  const bodyChildren = Array.from(document.querySelector("body").children);
+  bodyChildren.forEach((child) => {
+    child.remove();
+  });
+});
