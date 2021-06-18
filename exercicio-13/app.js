@@ -7,7 +7,7 @@
 
   "NOME_DO_GATO é um gato COR_DO_GATO de IDADE_DO_GATO anos."
 */
-// Não me recordo como
+
 const getCatInfo = () => {
   const name = "Marcos";
   let age = 3;
@@ -139,7 +139,7 @@ console.log(title);
     página, através da classe deles;
   - Exiba esse NodeList no console.
 */
-// Não lembro como receber um nodelist pela classe diretamente. ou consigo atraves da tag ou um html collection atraves da classe, mas ambos não, a nao ser que converta mas ai foge do proposito.
+
 const secundaryTitles = document.querySelectorAll("h2");
 
 console.log(secundaryTitles);
