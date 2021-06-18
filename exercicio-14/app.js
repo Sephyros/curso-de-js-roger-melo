@@ -17,9 +17,12 @@ h1.textContent = h1.textContent.toUpperCase();
 
 const numbers = [53, 24, 3, 8, 1, 6, 57, 80, 77, 98, 55];
 const ul = document.querySelector(".numbers");
-numbers.forEach((number) => {
+
+const insertNumberIntoUl = (number) => {
   ul.innerHTML += `<li class="number">${number}</li>`;
-});
+};
+
+numbers.forEach(insertNumberIntoUl);
 
 /*
   03
@@ -28,13 +31,19 @@ numbers.forEach((number) => {
     - Se o número é par, ele deve ser exibido na cor "lightblue";
     - Se o número é ímpar, exiba-o na cor "pink".
 */
-ul.querySelectorAll(".number").forEach((li) => {
-  if (li.textContent % 2 === 0) {
-    li.setAttribute("style", "color: lightblue");
-  } else {
-    li.setAttribute("style", "color: pink");
+const lis = document.querySelectorAll(".number");
+
+const changeLiColor = (li) => {
+  const isEven = Number(li.textContent) % 2 === 0;
+  if (isEven) {
+    li.style.color = "lightblue";
+    return;
   }
-});
+
+  li.style.color = "pink";
+};
+
+lis.forEach(changeLiColor);
 
 /*
   04
@@ -44,7 +53,8 @@ ul.querySelectorAll(".number").forEach((li) => {
   P.s: a classe "body-background" já está declarada no style.css.
 */
 
-document.querySelector("body").classList.add("body-background");
+const body = document.body;
+body.classList.add("body-background");
 
 /*
   05
@@ -83,7 +93,7 @@ console.log(h1.style);
   - Remova a classe "body-background", do elemento body.
 */
 
-const body = document.querySelector("body").classList.remove("body-background");
+body.classList.remove("body-background");
 
 /*
   09
