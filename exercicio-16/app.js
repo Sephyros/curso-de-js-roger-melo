@@ -2,23 +2,38 @@
   01
 
   - Faça com que ao clicar em um dos elementos dentro da div, a mensagem  
-    'Clicou na div.' não seja exibida no console.
-*/
+  'Clicou na div.' não seja exibida no console.
+  */
 
 const div = document.querySelector("div");
 const elementsInsideDiv = Array.from(div.children);
 const h2 = document.querySelector("h2");
+const egg = document.querySelector(".egg");
+const button = document.querySelector("button");
 
-elementsInsideDiv.forEach((element) => {
-  element.addEventListener("click", (event) => {
-    h2.innerText = `Clicou no ${event.target.nodeName.toLowerCase()}, filho da div.`;
-    event.stopPropagation();
-  });
-});
+const showClickedElement = ({ target }) => {
+  const clickedElementName = target.tagName.toLowerCase();
+  if (clickedElementName === "div") {
+    h2.textContent = "Clicou na div.";
+    return;
+  }
+  h2.textContent = `Clicou no ${clickedElementName}, filho da div.`;
+};
 
-div.addEventListener("click", () => {
-  h2.innerText = "Clicou na div.";
-});
+const logCopyMessage = () => {
+  console.log("Texto copiado!");
+};
+const showCoordinates = ({ offsetX, offsetY }) => {
+  egg.textContent = `Eixo X: ${offsetX} | Eixo Y: ${offsetY}`;
+};
+const changeEggColor = () => {
+  egg.style.backgroundColor = "lightgoldenrodyellow";
+};
+
+div.addEventListener("click", showClickedElement);
+h2.addEventListener("copy", logCopyMessage);
+egg.addEventListener("mousemove", showCoordinates);
+button.addEventListener("click", changeEggColor);
 
 /*
   02
@@ -43,10 +58,6 @@ div.addEventListener("click", () => {
 seja exibida no console.
 */
 
-h2.addEventListener("copy", () => {
-  console.log("Texto copiado!");
-});
-
 /*
   05
 
@@ -55,22 +66,12 @@ h2.addEventListener("copy", () => {
     "Eixo X: COORDENADA_EIXO_X | Eixo Y: COORDENADA_EIXO_Y".
 */
 
-const egg = document.querySelector(".egg");
-egg.addEventListener("mousemove", (event) => {
-  console.log(`Eixo X: ${event.offsetX} | Eixo Y: ${event.offsetY}`, event);
-});
-
 /*
   06
 
   - Modifique a cor do ovo para "lightgoldenrodyellow" quando o botão for 
     clicado.
 */
-
-const button = document.querySelector("button");
-button.addEventListener("click", () => {
-  egg.style.backgroundColor = "lightgoldenrodyellow";
-});
 
 /*
   07
@@ -93,6 +94,10 @@ const people = [
   { id: 9, name: "Hamilton Silva", profession: "Advogado" },
 ];
 
-console.log(
-  people.some((person) => person.profession === "Front-end developer")
+const isSomePersonFrontendDeveloper = people.some(
+  ({ profession }) => profession === "Front-end developer"
 );
+
+if (isSomePersonFrontendDeveloper) {
+  console.log("O array people contém, no mínimo, um(a) Front-end developer.");
+}
