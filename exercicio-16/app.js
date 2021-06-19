@@ -5,41 +5,47 @@
     'Clicou na div.' não seja exibida no console.
 */
 
-const div = document.querySelector('div')
-const elementsInsideDiv = Array.from(div.children)
+const div = document.querySelector("div");
+const elementsInsideDiv = Array.from(div.children);
+const h2 = document.querySelector("h2");
 
-elementsInsideDiv.forEach(element => {
-  element.addEventListener('click', () => {
-    console.log('Clicou no filho da div.')
-  })
-})
+elementsInsideDiv.forEach((element) => {
+  element.addEventListener("click", (event) => {
+    h2.innerText = `Clicou no ${event.target.nodeName.toLowerCase()}, filho da div.`;
+    event.stopPropagation();
+  });
+});
 
-div.addEventListener('click', () => {
-  console.log('Clicou na div.')
-})
+div.addEventListener("click", () => {
+  h2.innerText = "Clicou na div.";
+});
 
 /*
   02
-
+  
   - No código acima, faça com que quando um filho da div for clicado, a mensagem  
-    exibida no console seja "Clicou no NOME_DA_TAG_COM_LETRAS_MINÚSCULAS, filho
-    da div.".
-*/
+  exibida no console seja "Clicou no NOME_DA_TAG_COM_LETRAS_MINÚSCULAS, filho
+  da div.".
+  */
 
 /*
-  03
-
-  - No index.html, abaixo da div sem classe, insira um h2;
-  - Faça com que a mensagem de clique na div e a mensagem de clique em algum
-    filho da div, ao invés de ser exibida no console, seja inserida neste h2.
-*/
+ 03
+ 
+ - No index.html, abaixo da div sem classe, insira um h2;
+ - Faça com que a mensagem de clique na div e a mensagem de clique em algum
+ filho da div, ao invés de ser exibida no console, seja inserida neste h2.
+ */
 
 /*
-  04
+04
 
-  - Faça com que quando o texto do h2 for copiado, a mensagem "Texto copiado!"  
-    seja exibida no console.
+- Faça com que quando o texto do h2 for copiado, a mensagem "Texto copiado!"  
+seja exibida no console.
 */
+
+h2.addEventListener("copy", () => {
+  console.log("Texto copiado!");
+});
 
 /*
   05
@@ -49,12 +55,22 @@ div.addEventListener('click', () => {
     "Eixo X: COORDENADA_EIXO_X | Eixo Y: COORDENADA_EIXO_Y".
 */
 
+const egg = document.querySelector(".egg");
+egg.addEventListener("mousemove", (event) => {
+  console.log(`Eixo X: ${event.offsetX} | Eixo Y: ${event.offsetY}`, event);
+});
+
 /*
   06
 
   - Modifique a cor do ovo para "lightgoldenrodyellow" quando o botão for 
     clicado.
 */
+
+const button = document.querySelector("button");
+button.addEventListener("click", () => {
+  egg.style.backgroundColor = "lightgoldenrodyellow";
+});
 
 /*
   07
@@ -66,13 +82,17 @@ div.addEventListener('click', () => {
 */
 
 const people = [
-  { id: 1, name: 'Pedro Henrique', profession: 'Dentista' },
-  { id: 2, name: 'Fábio Alexandre', profession: 'Físico' },
-  { id: 3, name: 'Thiago Ferreira', profession: 'Veterinário' },
-  { id: 4, name: 'Marcelo Antonio', profession: 'Matemático' },
-  { id: 5, name: 'Camilla Midori', profession: 'Engenheira Civil' },
-  { id: 6, name: 'Gustavo D\'Aqui', profession: 'Gerente de Marketing' },
-  { id: 7, name: 'Ana Paula', profession: 'Front-end developer' },
-  { id: 8, name: 'Matheus Manucci', profession: 'Piloto' },
-  { id: 9, name: 'Hamilton Silva', profession: 'Advogado' }
-]
+  { id: 1, name: "Pedro Henrique", profession: "Dentista" },
+  { id: 2, name: "Fábio Alexandre", profession: "Físico" },
+  { id: 3, name: "Thiago Ferreira", profession: "Veterinário" },
+  { id: 4, name: "Marcelo Antonio", profession: "Matemático" },
+  { id: 5, name: "Camilla Midori", profession: "Engenheira Civil" },
+  { id: 6, name: "Gustavo D'Aqui", profession: "Gerente de Marketing" },
+  { id: 7, name: "Ana Paula", profession: "Front-end developer" },
+  { id: 8, name: "Matheus Manucci", profession: "Piloto" },
+  { id: 9, name: "Hamilton Silva", profession: "Advogado" },
+];
+
+console.log(
+  people.some((person) => person.profession === "Front-end developer")
+);
