@@ -1,21 +1,38 @@
 const form = document.querySelector(".value-form");
-const valueInput = document.querySelector("input");
+const input = document.querySelector("input");
 const paragraph = document.querySelector("p");
 
 const regexDoc = /documentation/;
+const result = regexDoc.test(paragraph.textContent);
 
-form.addEventListener("submit", (event) => {
+const clearInput = () => {
+  input.value = "";
+  input.focus();
+};
+
+const logMessage = (message) => {
+  console.log(message);
+  clearInput;
+};
+
+const handleSubmit = (event) => {
   event.preventDefault();
+
   console.log(event.target.input.value);
-  const validation = /[0-9a-zA-Z]{7,11}/;
-  if (validation.test(valueInput.value)) {
-    console.log("O valor inserido no input é válido =)");
+
+  const regex = /[0-9a-zA-Z]{7,11}/;
+  const isAValidValue = regex.test(input.value);
+
+  if (isAValidValue) {
+    logMessage("O valor inserido no input é válido =)");
     return;
   }
-  console.log("Valor inválido =(");
-});
+  logMessage("Valor inválido =(");
+};
 
-console.log(regexDoc.test(paragraph.textContent));
+form.addEventListener("submit", handleSubmit);
+
+console.log(result);
 
 /*
   01
@@ -48,8 +65,9 @@ console.log(regexDoc.test(paragraph.textContent));
 
 const B99message =
   "E o Terry Crews faz tudo, inclusive tocar a abertura de B99 na flauta";
-const B99Regex = /B99/;
-console.log(B99Regex.test(B99message));
+const B99Regex = /[A-Z0-9]{3}/;
+const B99Result = B99Regex.test(B99message);
+console.log(B99Result);
 
 /*
   05
