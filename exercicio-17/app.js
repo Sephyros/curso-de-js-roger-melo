@@ -1,3 +1,22 @@
+const form = document.querySelector(".value-form");
+const valueInput = document.querySelector("input");
+const paragraph = document.querySelector("p");
+
+const regexDoc = /documentation/;
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  console.log(event.target.input.value);
+  const validation = /[0-9a-zA-Z]{7,11}/;
+  if (validation.test(valueInput.value)) {
+    console.log("O valor inserido no input é válido =)");
+    return;
+  }
+  console.log("Valor inválido =(");
+});
+
+console.log(regexDoc.test(paragraph.textContent));
+
 /*
   01
 
@@ -27,7 +46,10 @@
   - Teste se o match aconteceu e exiba o resultado no console.
 */
 
-const B99message = 'E o Terry Crews faz tudo, inclusive tocar a abertura de B99 na flauta'
+const B99message =
+  "E o Terry Crews faz tudo, inclusive tocar a abertura de B99 na flauta";
+const B99Regex = /B99/;
+console.log(B99Regex.test(B99message));
 
 /*
   05
@@ -36,11 +58,11 @@ const B99message = 'E o Terry Crews faz tudo, inclusive tocar a abertura de B99 
     resultado do teste entre a regex e a string exibido no console seja true.
 */
 
-const word = 'O que a NASA fotografou no dia do seu aniversário?'
-const NASARegex = /^[A-Z]{4}$/
-const NASAResult = NASARegex.test(word)
+const word = "NASA";
+const NASARegex = /^[A-Z]{4}$/;
+const NASAResult = NASARegex.test(word);
 
-console.log(NASAResult)
+console.log(NASAResult);
 
 /*
   06
