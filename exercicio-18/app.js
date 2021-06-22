@@ -3,60 +3,88 @@
   vimos até aqui =)
 */
 
-const form = document.querySelector("form");
 const input = document.querySelector("#username");
-const feedbackParagraph = document.createElement("p");
-const submitFeedback = document.createElement("p");
-const regex = /[a-zA-Z]{6,}/;
+const form = document.querySelector("form");
 const button = document.querySelector("button");
 
-const validateUsername = (username) => regex.test(username);
-const createHelpFeedback = (element, className, message) => {
-  element.innerText = message;
-  element.className = className;
+const paragraphUsernameFeedback = document.createElement("p");
+const paragraphSubmitFeedback = document.createElement("p");
+
+paragraphSubmitFeedback.setAttribute("data-feedback", "submit-feedback");
+
+const invalidUsernameInfo = {
+  paragraph: paragraphUsernameFeedback,
+  text: "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas",
+  className: "username-help-feedback",
+  previousSibling: input,
 };
 
-form.addEventListener("keyup", (event) => {
-  const username = event.target.value;
+const validUsernameInfo = {
+  paragraph: paragraphUsernameFeedback,
+  text: "Username válido =)",
+  className: "username-success-feedback",
+  previousSibling: input,
+};
 
-  input.insertAdjacentElement("afterend", feedbackParagraph);
+const invalidSubmitInfo = {
+  paragraph: paragraphSubmitFeedback,
+  text: "Por favor, insira um username válido",
+  className: "submit-help-feedback",
+  previousSibling: button,
+};
 
-  if (validateUsername(username)) {
-    createHelpFeedback(
-      feedbackParagraph,
-      "username-success-feedback",
-      "Username válido =)"
-    );
+const validSubmitInfo = {
+  paragraph: paragraphSubmitFeedback,
+  text: "Dados enviados =)",
+  className: "submit-success-feedback",
+  previousSibling: button,
+};
+
+const insertParagraphIntoDOM = (paragraphInfo) => {
+  const { paragraph, text, className, previousSibling } = paragraphInfo;
+  paragraph.textContent = text;
+  paragraph.setAttribute("class", className);
+  previousSibling.insertAdjacentElement("afterend", paragraph);
+};
+
+const removeSubmitParagraph = () => {
+  const submitFeedbackExists = document.querySelector(
+    '[data-feedback="submit-feedback"]'
+  );
+
+  if (submitFeedbackExists) {
+    paragraphSubmitFeedback.remove();
+  }
+};
+
+const validateUsername = (username) => /^[a-zA-Z]{6,}$/.test(username);
+
+const showUsernameInfo = (event) => {
+  const isUsernameValid = validateUsername(event.target.value);
+
+  removeSubmitParagraph();
+
+  if (!isUsernameValid) {
+    insertParagraphIntoDOM(invalidUsernameInfo);
     return;
   }
-  createHelpFeedback(
-    feedbackParagraph,
-    "username-help-feedback",
-    "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas"
-  );
-});
+  insertParagraphIntoDOM(validUsernameInfo);
+};
 
-form.addEventListener("submit", (event) => {
+const showSubmitInfo = (event) => {
   event.preventDefault();
 
-  const username = input.value;
+  const isUsernameValid = validateUsername(input.value);
 
-  button.insertAdjacentElement("afterend", submitFeedback);
-
-  if (validateUsername(username)) {
-    createHelpFeedback(
-      submitFeedback,
-      "submit-success-feedback",
-      "Dados enviados =)"
-    );
+  if (!isUsernameValid) {
+    insertParagraphIntoDOM(invalidSubmitInfo);
     return;
   }
-  createHelpFeedback(
-    submitFeedback,
-    "submit-help-feedback",
-    "Por favor, insira um username válido"
-  );
-});
+  insertParagraphIntoDOM(validSubmitInfo);
+};
+
+input.addEventListener("input", showUsernameInfo);
+form.addEventListener("submit", showSubmitInfo);
 
 /*
   01
@@ -109,4 +137,14 @@ form.addEventListener("submit", (event) => {
   do curso, onde falaremos sobre TDD. Vá se aquecendo =D
 */
 
-// Não consegui realizar este exercício.
+const some = (array, func) => {
+  for (let i = 0; i < array.length; i++) {
+    if (func(array[i])) {
+      return true;
+    }
+  }
+  return false;
+};
+
+console.log(some([1, 2, 3], (item) => item > 2));
+console.log(some([1, 3, 5], (item) => item === 0));
