@@ -3,6 +3,61 @@
   vimos até aqui =)
 */
 
+const form = document.querySelector("form");
+const input = document.querySelector("#username");
+const feedbackParagraph = document.createElement("p");
+const submitFeedback = document.createElement("p");
+const regex = /[a-zA-Z]{6,}/;
+const button = document.querySelector("button");
+
+const validateUsername = (username) => regex.test(username);
+const createHelpFeedback = (element, className, message) => {
+  element.innerText = message;
+  element.className = className;
+};
+
+form.addEventListener("keyup", (event) => {
+  const username = event.target.value;
+
+  input.insertAdjacentElement("afterend", feedbackParagraph);
+
+  if (validateUsername(username)) {
+    createHelpFeedback(
+      feedbackParagraph,
+      "username-success-feedback",
+      "Username válido =)"
+    );
+    return;
+  }
+  createHelpFeedback(
+    feedbackParagraph,
+    "username-help-feedback",
+    "O valor deve conter no mínimo 6 caracteres, com apenas letras maiúsculas e/ou minúsculas"
+  );
+});
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const username = input.value;
+
+  button.insertAdjacentElement("afterend", submitFeedback);
+
+  if (validateUsername(username)) {
+    createHelpFeedback(
+      submitFeedback,
+      "submit-success-feedback",
+      "Dados enviados =)"
+    );
+    return;
+  }
+  createHelpFeedback(
+    submitFeedback,
+    "submit-help-feedback",
+    "Por favor, insira um username válido"
+  );
+});
+
 /*
   01
 
@@ -53,3 +108,5 @@
   Spoiler alert: este tipo de exercício será frequente em etapas mais avançadas  
   do curso, onde falaremos sobre TDD. Vá se aquecendo =D
 */
+
+// Não consegui realizar este exercício.
