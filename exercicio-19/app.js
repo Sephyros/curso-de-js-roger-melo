@@ -50,5 +50,12 @@ form.addEventListener("submit", (event) => {
     }
   });
 
-  scoreboard.textContent = `${score} pontos`;
+  let delay = 0;
+  const timer = setInterval(() => {
+    scoreboard.textContent = `${delay}%`;
+    if (delay === score) {
+      clearInterval(timer);
+    }
+    delay++;
+  }, 25);
 });
