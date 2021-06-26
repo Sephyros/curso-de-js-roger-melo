@@ -51,6 +51,7 @@ form.addEventListener("submit", (event) => {
   });
 
   let delay = 0;
+  
   const timer = setInterval(() => {
     scoreboard.textContent = `${delay}%`;
     if (delay === score) {
