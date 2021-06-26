@@ -37,12 +37,11 @@ startCounterButton.addEventListener("click", () => {
   const counterFunction = setInterval(() => {
     counter++;
 
-    
     if (clickedStop) {
       counter = 0;
-      
+
       clearInterval(counterFunction);
-      
+
       clickedStop = false;
     }
     timerCounter.textContent = counter;
@@ -56,8 +55,8 @@ startCounterButton.addEventListener("click", () => {
   - Adicione mais 2 alternativas em cada pergunta do quiz.
 */
 
-// já havia feito sem saber 
- 
+// já havia feito sem saber
+
 /* 
   05
 
@@ -65,7 +64,7 @@ startCounterButton.addEventListener("click", () => {
     alternativa correta das perguntas não seja apenas a alternativa "B".
 */
 
-// já havia feito sem saber 
+// já havia feito sem saber
 
 /* 
   06
@@ -100,3 +99,4 @@ startCounterButton.addEventListener("click", () => {
   você pode hospedá-la no Netlify seguindo este tutorial: 
   https://www.youtube.com/playlist?list=PLlAbYrWSYTiMGMxQf9JSoZUU1rgVpGPth
 */
+// https://gamesquiz.netlify.app/
