@@ -28,32 +28,29 @@ const correctAnswers = ["A", "C", "B", "D", "B", "A", "E", "C", "D", "E"];
 
 let score = 0;
 
-const calculateUserScore = (userAnswers) => {
-  score = 0;
-  userAnswers.forEach((userAnswer, index) => {
-    const isUserAnswerCorrect = userAnswer === correctAnswers[index];
+const calculateUserScore = () => {
+  score = correctAnswers.reduce((score, correctAnswer, index) => {
+    const userAnswer = form[`inputQuestion${index + 1}`].value;
+    const isUserAnswerCorrect = userAnswer === correctAnswer;
+
     if (isUserAnswerCorrect) {
       score += 100 / correctAnswers.length;
     }
-  });
-};
-
-const getUsersAnswers = () => {
-  const userAnswers = [];
-
-  correctAnswers.forEach((_, index) => {
-    const userAnswer = form[`inputQuestion${index + 1}`].value;
-    userAnswers.push(userAnswer);
-  });
-  return userAnswers;
+    return score;
+  }, 0);
 };
 
 const showFinalScore = () => {
   scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  animateFinalScore();
 };
 
 const animateFinalScore = () => {
   let delay = 0;
+  if (score === 0) {
+    scoreboard.textContent = `${score}% - que vergonha!`;
+    return;
+  }
 
   const timer = setInterval(() => {
     scoreboard.textContent = `${++delay}%`;
@@ -66,9 +63,7 @@ const animateFinalScore = () => {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const userAnswers = getUsersAnswers();
+  calculateUserScore();
 
-  calculateUserScore(userAnswers);
   showFinalScore();
-  animateFinalScore();
 });
