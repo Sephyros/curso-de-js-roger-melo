@@ -26,37 +26,49 @@ const form = document.querySelector(".quiz-form");
 const scoreboard = document.querySelector(".score");
 const correctAnswers = ["A", "C", "B", "D", "B", "A", "E", "C", "D", "E"];
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+let score = 0;
 
-  let score = 0;
-
-  const userAnswers = [
-    event.target.inputQuestion1.value,
-    event.target.inputQuestion2.value,
-    event.target.inputQuestion3.value,
-    event.target.inputQuestion4.value,
-    event.target.inputQuestion5.value,
-    event.target.inputQuestion6.value,
-    event.target.inputQuestion7.value,
-    event.target.inputQuestion8.value,
-    event.target.inputQuestion9.value,
-    event.target.inputQuestion10.value,
-  ];
-
+const calculateUserScore = (userAnswers) => {
+  score = 0;
   userAnswers.forEach((userAnswer, index) => {
-    if (userAnswer === correctAnswers[index]) {
+    const isUserAnswerCorrect = userAnswer === correctAnswers[index];
+    if (isUserAnswerCorrect) {
       score += 100 / correctAnswers.length;
     }
   });
+};
 
+const getUsersAnswers = () => {
+  const userAnswers = [];
+
+  correctAnswers.forEach((_, index) => {
+    const userAnswer = form[`inputQuestion${index + 1}`].value;
+    userAnswers.push(userAnswer);
+  });
+  return userAnswers;
+};
+
+const showFinalScore = () => {
+  scrollTo({ top: 0, left: 0, behavior: "smooth" });
+};
+
+const animateFinalScore = () => {
   let delay = 0;
-  
+
   const timer = setInterval(() => {
-    scoreboard.textContent = `${delay}%`;
+    scoreboard.textContent = `${++delay}%`;
     if (delay === score) {
-      clearInterval(timer);
+      return clearInterval(timer);
     }
-    delay++;
-  }, 25);
+  }, 5);
+};
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const userAnswers = getUsersAnswers();
+
+  calculateUserScore(userAnswers);
+  showFinalScore();
+  animateFinalScore();
 });

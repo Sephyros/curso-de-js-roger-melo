@@ -11,9 +11,9 @@
     mensagem "Um segundo e meio se passaram desde que a página foi carregada".
 */
 
-setTimeout(() => {
-  console.log("Um segundo e meio se passaram desde que a página foi carregada");
-}, 1500);
+const message =
+  "Um segundo e meio se passaram desde que a página foi carregada";
+setTimeout(console.log, 1500, message);
 
 /* 
   03
@@ -24,29 +24,25 @@ setTimeout(() => {
 
 const startCounterButton = document.querySelector(".button-init-counter");
 const stopCounterButton = document.querySelector(".button-stop-counter");
-const timerCounter = document.querySelector(".counter-container");
+const timerContainer = document.querySelector(".counter-container");
 
-let clickedStop = false;
+let timer = null;
 
-stopCounterButton.addEventListener("click", () => {
-  clickedStop = true;
-});
+const incrementCounter = () => {
+  const incrementedCounter = Number(timerContainer.textContent) + 1;
+  timerContainer.textContent = incrementedCounter;
+};
+
+const stopCounter = () => {
+  clearInterval(timer);
+  timerContainer.textContent = 0;
+};
 
 startCounterButton.addEventListener("click", () => {
-  let counter = 0;
-  const counterFunction = setInterval(() => {
-    counter++;
-
-    if (clickedStop) {
-      counter = 0;
-
-      clearInterval(counterFunction);
-
-      clickedStop = false;
-    }
-    timerCounter.textContent = counter;
-  }, 50);
+  timer = setInterval(incrementCounter, 1000);
 });
+
+stopCounterButton.addEventListener("click", stopCounter);
 
 /* 
   04
