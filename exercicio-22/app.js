@@ -1,3 +1,4 @@
+const getArrayCopy = (array) => array.map((item) => item);
 /*
   01
 
@@ -7,8 +8,8 @@
 */
 
 const names = ["Caio", "André", "Dário"];
-names.sort();
-console.log(names);
+const sortedNames = getArrayCopy(names).sort();
+console.log(sortedNames);
 
 /*
   02
@@ -24,10 +25,10 @@ const characters = [
   { id: 01, name: "Scar" },
   { id: 04, name: "Mufasa" },
 ];
-const ordenedCharacters = characters
-  .slice()
+const charactersOrdenedByID = characters
+  .map(({ id, name }) => ({ id, name }))
   .sort((item1, item2) => item1.id - item2.id);
-console.log(characters, ordenedCharacters);
+console.log(characters, charactersOrdenedByID);
 
 /*
   03
@@ -38,10 +39,10 @@ console.log(characters, ordenedCharacters);
 */
 
 const numbers = [41, 15, 63, 349, 25, 22, 143, 64, 59, 291];
-const ordenedNumbers = numbers
-  .slice()
-  .sort((number1, number2) => number1 - number2);
-console.log(numbers, ordenedNumbers);
+const numbersInAscendingOrder = getArrayCopy(numbers).sort(
+  (number1, number2) => number1 - number2
+);
+console.log(numbers, numbersInAscendingOrder);
 
 /*
   04
@@ -50,10 +51,10 @@ console.log(numbers, ordenedNumbers);
 */
 
 const randomNumbers = [10, 5, 0, 40, 60, 10, 20, 70];
-const firstNumberAbove50 = randomNumbers
-  .sort((number1, number2) => number1 - number2)
-  .filter((number) => number > 50)[0];
-console.log(firstNumberAbove50);
+const firstNumberGreaterThan50 = randomNumbers
+  .sort((item1, item2) => item1 - item2)
+  .find((number) => number >= 50);
+console.log(firstNumberGreaterThan50);
 
 /*
   05
@@ -64,7 +65,7 @@ console.log(firstNumberAbove50);
 */
 
 const people = ["Cauã", "Alfredo", "Bruno"];
-const peopleInReverseAlphabeticalOrder = people.slice().sort().reverse();
+const peopleInReverseAlphabeticalOrder = getArrayCopy(people).sort().reverse();
 console.log(people, peopleInReverseAlphabeticalOrder);
 
 /*
@@ -77,9 +78,10 @@ console.log(people, peopleInReverseAlphabeticalOrder);
 
 const ingredients = ["vinho", "tomate", "cebola", "cogumelo"];
 const cookedIngredients = ingredients
-  .map(
-    (ingredient) => `${ingredient} cozid${ingredient === "cebola" ? "a" : "o"}`
-  )
+  .map((ingredient) => {
+    const correctWordGender = /a$/.test(ingredient) ? "cozida" : "cozido";
+    return `${ingredient} ${correctWordGender}`;
+  })
   .join(", ");
 console.log(cookedIngredients);
 
@@ -128,12 +130,8 @@ const topBrazilmovies = [
 ];
 
 const disneyWatchers = topBrazilmovies.reduce(
-  (acc, { peopleAmount, distributedBy }) => {
-    if (distributedBy === "Disney") {
-      acc += peopleAmount;
-    }
-    return acc;
-  },
+  (acc, { peopleAmount, distributedBy }) =>
+    distributedBy === "Disney" ? (acc += peopleAmount) : acc,
   0
 );
 console.log(disneyWatchers);
@@ -159,9 +157,7 @@ const pets = [
 ];
 const dogs = pets
   .filter(({ type }) => type === "Dog")
-  .map(({ name, age, gender, type }) => {
-    return { name, age: age * 7, gender, type };
-  });
+  .map(({ name, age, gender, type }) => ({ name, age: age * 7, gender, type }));
 console.log(dogs);
 
 /*
@@ -173,7 +169,7 @@ console.log(dogs);
 
 const moviesList = document.querySelector(".list-group");
 moviesList.innerHTML = topBrazilmovies.reduce(
-  (acc, movie) => (acc += `<li>${movie.title}</li>`),
+  (acc, { title }) => (acc += `<li>${title}</li>`),
   ""
 );
 
