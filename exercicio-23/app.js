@@ -5,7 +5,8 @@
   - Não modifique a string manualmente.
 */
 
-const myString = '    JS      '
+const myString = "    JS      ";
+console.log(myString.trim());
 
 /*
   02
@@ -17,11 +18,15 @@ const myString = '    JS      '
 */
 
 const people = [
-  { firstName: 'Estevão', lastName: 'Rodriguez', score: 90 },
-  { firstName: 'José', lastName: 'Antônio', score: 100 },
-  { firstName: 'Felipe', lastName: 'Tavares', score: 71 },
-  { firstName: 'Eric', lastName: 'Silva', score: 82 }
-]
+  { firstName: "Estevão", lastName: "Rodriguez", score: 90 },
+  { firstName: "José", lastName: "Antônio", score: 100 },
+  { firstName: "Felipe", lastName: "Tavares", score: 71 },
+  { firstName: "Eric", lastName: "Silva", score: 82 },
+];
+const orderedPeople = people
+  .map((person) => person)
+  .sort((person1, person2) => person1.score - person2.score);
+console.log(people, orderedPeople);
 
 /*
   03
@@ -33,7 +38,9 @@ const people = [
       debugger antes de partir para o próximo.
 */
 
-const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
+const animals = ["cão", "gato", "boi", "leão", "gnu", "alce", "ema"];
+const animalsWith3Characters = animals.filter((animal) => animal.length <= 3);
+// debugger;
 
 /*
   04
@@ -42,7 +49,8 @@ const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
-
+const animalsNameLengths = animals.map((animal) => animal.length);
+// debugger;
 
 /*
   05
@@ -53,14 +61,16 @@ const animals = ['cão', 'gato', 'boi', 'leão', 'gnu', 'alce', 'ema']
 */
 
 const friends = [
-  { id: 1, name: 'João', nearMe: true },
-  { id: 2, name: 'Matheus', nearMe: true },
-  { id: 3, name: 'Luana', nearMe: false },
-  { id: 4, name: 'Nilson', nearMe: true },
-  { id: 5, name: 'Solange', nearMe: false }
-]
-
-
+  { id: 1, name: "João", nearMe: true },
+  { id: 2, name: "Matheus", nearMe: true },
+  { id: 3, name: "Luana", nearMe: false },
+  { id: 4, name: "Nilson", nearMe: true },
+  { id: 5, name: "Solange", nearMe: false },
+];
+const nearFriends = friends
+  .filter(({ nearMe }) => nearMe)
+  .map(({ name }) => name);
+// debugger;
 
 /*
   06
@@ -69,8 +79,11 @@ const friends = [
     do array abaixo.
 */
 
-const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
-
+const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81];
+const oddNumbersSum = numbers
+  .filter((number) => number % 2 !== 0)
+  .reduce((acc, number) => (acc += number), 0);
+// debugger
 /*
   07
 
@@ -78,16 +91,26 @@ const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81]
     países, exceto a China.
 */
 
-const data = [{
-  country: 'China',
-  population: 1409517397
-}, {
-  country: 'India',
-  population: 1339180127
-}, {
-  country: 'USA',
-  population: 324459463
-}, {
-  country: 'Indonesia',
-  population: 263991379
-}]
+const data = [
+  {
+    country: "China",
+    population: 1409517397,
+  },
+  {
+    country: "India",
+    population: 1339180127,
+  },
+  {
+    country: "USA",
+    population: 324459463,
+  },
+  {
+    country: "Indonesia",
+    population: 263991379,
+  },
+];
+
+const populationSumOfAllCountriesExceptChina = data
+  .filter(({ country }) => country !== "China")
+  .reduce((acc, { population }) => (acc += population), 0);
+// debugger;
