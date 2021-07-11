@@ -23,10 +23,14 @@ const people = [
   { firstName: "Felipe", lastName: "Tavares", score: 71 },
   { firstName: "Eric", lastName: "Silva", score: 82 },
 ];
-const orderedPeople = people
-  .map((person) => person)
+const peopleOrderedByScore = people
+  .map(({ firstName, lastName, score }) => ({
+    firstName,
+    lastName,
+    score,
+  }))
   .sort((person1, person2) => person1.score - person2.score);
-console.log(people, orderedPeople);
+console.log(people, peopleOrderedByScore);
 
 /*
   03
@@ -39,7 +43,7 @@ console.log(people, orderedPeople);
 */
 
 const animals = ["cão", "gato", "boi", "leão", "gnu", "alce", "ema"];
-const animalsWith3Characters = animals.filter((animal) => animal.length <= 3);
+const animalsWith3Characters = animals.filter(({ length }) => length === 3);
 // debugger;
 
 /*
@@ -49,7 +53,7 @@ const animalsWith3Characters = animals.filter((animal) => animal.length <= 3);
     nome de cada animal. Ex.: [6, 8, 2].
 */
 
-const animalsNameLengths = animals.map((animal) => animal.length);
+const animalsNameLengths = animals.map(({ length }) => length);
 // debugger;
 
 /*
@@ -67,7 +71,7 @@ const friends = [
   { id: 4, name: "Nilson", nearMe: true },
   { id: 5, name: "Solange", nearMe: false },
 ];
-const nearFriends = friends
+const friendsNearMe = friends
   .filter(({ nearMe }) => nearMe)
   .map(({ name }) => name);
 // debugger;
@@ -81,8 +85,8 @@ const nearFriends = friends
 
 const numbers = [46, 86, 212, 29, 51, 9, 25, 42, 81];
 const oddNumbersSum = numbers
-  .filter((number) => number % 2 !== 0)
-  .reduce((acc, number) => (acc += number), 0);
+  .filter((number) => number % 2)
+  .reduce((acc, number) => acc + number, 0);
 // debugger
 /*
   07
@@ -112,5 +116,5 @@ const data = [
 
 const populationSumOfAllCountriesExceptChina = data
   .filter(({ country }) => country !== "China")
-  .reduce((acc, { population }) => (acc += population), 0);
+  .reduce((acc, { population }) => acc + population, 0);
 // debugger;
