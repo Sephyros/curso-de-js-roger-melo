@@ -5,7 +5,8 @@
     abaixo.
 */
 
-const message = 'Próxima etapa: 10'
+const message = "Próxima etapa: 10";
+console.log(message.includes(":"));
 
 /*
   02
@@ -14,7 +15,8 @@ const message = 'Próxima etapa: 10'
     abaixo.
 */
 
-const numbers = [979, 2673, 41, 77, 276, 554, 399, 385, 65, 726, 635, 833, 462]
+const numbers = [979, 2673, 41, 77, 276, 554, 399, 385, 65, 726, 635, 833, 462];
+console.log(numbers.includes(635));
 
 /*
   A partir daqui, vamos treinar nossas skills de refatoração.
@@ -37,6 +39,15 @@ const numbers = [979, 2673, 41, 77, 276, 554, 399, 385, 65, 726, 635, 833, 462]
     o código que foi implementado na aula não funcionará.
 */
 
+/* A questão é vaga para quem não conhece sobre as mudanças que poderiam acontecer
+na marcação... será que poderá remover o ícone? a lista não seria mais uma UL
+com LIs? ou talvez apenas os SPAN saíssem? no meu ponto de vista é impossível
+fazer uma implementação que sobreviva a todas mudanças possíveis no DOM. e mesmo
+considerando que apenas o UL/LI/ICONE se manteriam, não consigo imaginar um
+método que não tenha de percorrer todo dom.
+Resumindo: Não irei mais tentar resolver. Não estou desistindo, apenas
+valorizando meu tempo evitando procurar soluções milagrosas. */
+
 /*
   04
 
@@ -46,3 +57,5 @@ const numbers = [979, 2673, 41, 77, 276, 554, 399, 385, 65, 726, 635, 833, 462]
     - O código que adiciona os to-dos;
     - O código que filtra e adiciona as classes CSS nos to-dos.
 */
+
+// Ainda tenho dificuldades em decifrar até que ponto devo isolar as funções para equilibrar legibilidade com manutenibilidade...
