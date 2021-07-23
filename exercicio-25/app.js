@@ -70,11 +70,8 @@ console.log(future);
 */
 
 const difference = future.getTime() - past.getTime();
-console.log(
-  Math.round(
-    Math.round(Math.round(Math.round(difference / 1000) / 60) / 60) / 24
-  )
-);
+const differenceInDays = Math.round(difference / 1000) / 60 / 60 / 24;
+console.log(differenceInDays);
 
 /*
   08
