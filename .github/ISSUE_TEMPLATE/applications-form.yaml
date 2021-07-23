@@ -2,8 +2,6 @@ name: 🔥Aplicação
 description: Issues relacionadas às aplicações desenvolvidas no treinamento
 title: "Aplicação: [NOME_DA_APLICAÇÃO]"
 labels: [🔥aplicação]
-assignees:
-  - Roger-Melo
 body:
   - type: dropdown
     id: colors-check
@@ -35,19 +33,19 @@ body:
   - type: input
     id: repo-link
     attributes:
-      label: Link do repositório da sua aplicação
+      label: Link do repositório da aplicação
       placeholder: Insira aqui o link do repositório da sua aplicação
     validations:
       required: true
   - type: textarea
     id: obstacles
     attributes:
-      label: Suas maiores dificuldades durante a implementação
+      label: Maiores dificuldades durante a implementação
     validations:
       required: true
   - type: textarea
     id: easiness
     attributes:
-      label: Suas menores dificuldades durante a implementação
+      label: Menores dificuldades durante a implementação
     validations:
       required: true
