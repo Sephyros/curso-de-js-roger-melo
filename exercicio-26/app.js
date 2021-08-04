@@ -1,3 +1,4 @@
+const formatDataUnit = (unit) => (unit <= 9 ? "0" + unit : unit);
 /*
   01
 
@@ -7,13 +8,12 @@
 */
 const myTestDate = new Date();
 const formatDate = (date) => {
-  const day = date.getDay() <= 9 ? "0" + date.getDay() : date.getDay();
-  const month = date.getMonth() <= 9 ? "0" + date.getMonth() : date.getMonth();
+  const day = formatDataUnit(date.getDate());
+  const month = formatDataUnit(date.getMonth() + 1);
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 };
 console.log(formatDate(myTestDate));
-
 /*
   02
 
@@ -23,17 +23,18 @@ console.log(formatDate(myTestDate));
 */
 
 const longStrangeFormat = (date) => {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const hours = formatDataUnit(date.getHours());
+  const minutes = formatDataUnit(date.getMinutes());
   const day = date.getDay();
   const month = new Intl.DateTimeFormat("pt-BR", { month: "long" }).format(
-    date.getMonth()
+    date
   );
   const year = date.getFullYear();
-  const time = `${hours <= 9 ? "0" + hours : hours}:${minutes}`;
+  const time = `${hours}:${minutes}`;
   const weekday = new Intl.DateTimeFormat("pt-BR", { weekday: "long" }).format(
-    date.getDay()
+    date
   );
+
   return `${time} - ${weekday}, ${day} de ${month} de ${year}`;
 };
 console.log(longStrangeFormat(myTestDate));
@@ -88,26 +89,15 @@ console.log(shorthandedObject);
   - Refatore o código abaixo.
 */
 
-// Não consegui identificar o que deveria ser refatorado
-
 const useDataSomewhereElse = (value) => {
   console.log(value);
 };
 
-const updateSomething = (data = {}) => {
-  const target = data.target;
-  const property = data.property;
-  let willChange = data.willChange;
-
+const updateSomething = ({ target, property, willChange } = {}) => {
   if (willChange === "valor indesejado") {
     willChange = "valor desejado";
   }
-
-  useDataSomewhereElse({
-    target: target,
-    property: property,
-    willChange: willChange,
-  });
+  useDataSomewhereElse({ target, property, willChange });
 };
 
 updateSomething({ target: "1", property: "2", willChange: "valor indesejado" });
@@ -123,19 +113,19 @@ updateSomething({ target: "1", property: "2", willChange: "valor indesejado" });
 
 const clockContainer = document.querySelector(".clock-container");
 
+const getClockHTML = (hours, minutes, seconds)=>
+`<span>${hours}</span> :
+<span>${minutes}</span> :
+<span>${seconds}</span>
+`
+
 const updateClock = () => {
   const present = new Date();
-  const hours = present.getHours();
-  const minutes = present.getMinutes();
-  const seconds = present.getSeconds();
+  const hours = formatDataUnit(present.getHours());
+  const minutes = formatDataUnit(present.getMinutes());
+  const seconds = formatDataUnit(present.getSeconds());
 
-  const clockHTML = `
-    <span>${String(hours).length === 1 ? `0${hours}` : hours}</span> :
-    <span>${String(minutes).length === 1 ? `0${minutes}` : minutes}</span> :
-    <span>${String(seconds).length === 1 ? `0${seconds}` : seconds}</span>
-  `;
-
-  clockContainer.innerHTML = clockHTML;
+  clockContainer.innerHTML = getClockHTML(hours, minutes, seconds);
 };
 
 setInterval(updateClock, 1000);
