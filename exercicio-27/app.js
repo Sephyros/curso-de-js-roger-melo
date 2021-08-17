@@ -4,17 +4,19 @@
   - Implemente um código assíncrono entre os console.log() abaixo.
 */
 
-console.log('Linha 1')
-console.log('Linha 2')
-console.log('Linha 3')
-console.log('Linha 4')
+console.log("Linha 1");
+console.log("Linha 2");
+console.log("Linha 3");
+console.log("Linha 4");
 
+setTimeout(() => {
+  console.log("Código assíncrono executado!");
+}, 2000);
 
-
-console.log('Linha 5')
-console.log('Linha 6')
-console.log('Linha 7')
-console.log('Linha 8')
+console.log("Linha 5");
+console.log("Linha 6");
+console.log("Linha 7");
+console.log("Linha 8");
 
 /*
   02
@@ -23,11 +25,11 @@ console.log('Linha 8')
     "logGreeting" ser exibida no console.
 */
 
-function logGreeting (name) {
-  console.log(`olá, ${name}`)
+function logGreeting(name) {
+  console.log(`olá, ${name}`);
 }
 
-// x(logGreeting)
+const greet = logGreeting("Leonardo");
 
 /*
   03
@@ -35,10 +37,10 @@ function logGreeting (name) {
   - O código abaixo possui uma parte que pode ser isolada. Isole-a.
 */
 
-const numbers = [3, 4, 10, 20]
-const lesserThanFive = numbers.filter(num => num < 5)
-
-console.log(lesserThanFive)
+const numbers = [3, 4, 10, 20];
+const isLessThanFive = (num) => num < 5;
+const lesserThanFive = numbers.filter(isLessThanFive);
+console.log(lesserThanFive);
 
 /*
   04
@@ -46,14 +48,12 @@ console.log(lesserThanFive)
   - Refatore o código abaixo.
 */
 
-const prices = [12, 19, 7, 209]
-let totalPrice = 0
+const prices = [12, 19, 7, 209];
 
-for (let i = 0; i < prices.length; i++) {
-  totalPrice += prices[i]
-}
+const sumPrices = (pricesArray) =>
+  pricesArray.reduce((acc, price) => (acc += price), 0);
 
-console.log(`Preço total: ${totalPrice}`)
+console.log(`Preço total: ${sumPrices(prices)}`);
 
 /*
   05
@@ -62,7 +62,8 @@ console.log(`Preço total: ${totalPrice}`)
   - Não insira `car.color = azul`.
 */
 
-let car = { color: 'amarelo' }
+let car = { color: "amarelo" };
+car["color"] = "azul";
 
 /*
   06
@@ -73,6 +74,12 @@ let car = { color: 'amarelo' }
   - Se todos os argumentos forem passados, retorne a string 'A função foi 
     invocada com 3 argumentos'.
 */
+
+const exercise6 = (param1, param2, param3) =>
+  [param1, param2, param3].some((value) => !value)
+    ? "A função deve ser invocada com 3 argumentos"
+    : "A função foi invocada com 3 argumentos";
+console.log(exercise6("p1", 2, "p3"));
 
 /*
   07
@@ -98,5 +105,30 @@ let car = { color: 'amarelo' }
 
 let booksBox = {
   spaces: 5,
-  booksIn: 0
-}
+  booksIn: 0,
+  addBooks: (booksToAdd) => {
+    if (booksBox.spaces === 0) {
+      return `A caixa já está cheia`;
+    } else if (booksToAdd > booksBox.spaces) {
+      return `Só cabe${booksBox.spaces === 1 ? "" : "m"} mais ${
+        booksBox.spaces
+      } livro${booksBox.spaces === 1 ? "" : "s"}`;
+    } else {
+      booksBox.spaces -= booksToAdd;
+      booksBox.booksIn += booksToAdd;
+      return `Já há '${booksBox.booksIn}' livro${
+        booksBox.booksIn === 1 ? "" : "s"
+      } na caixa`;
+    }
+  },
+};
+
+console.log("Inserção nº1:", booksBox.addBooks(1));
+console.log("Inserção nº2:", booksBox.addBooks(1));
+console.log("Inserção nº3:", booksBox.addBooks(1));
+console.log("Inserção nº5:", booksBox.addBooks(3));
+console.log("Inserção nº4:", booksBox.addBooks(1));
+console.log("Inserção nº4:", booksBox.addBooks(2));
+console.log("Inserção nº6:", booksBox.addBooks(1));
+console.log("Inserção nº4:", booksBox.addBooks(1));
+
