@@ -29,7 +29,11 @@ function logGreeting(name) {
   console.log(`olá, ${name}`);
 }
 
-const greet = logGreeting("Leonardo");
+const x = (callback) => {
+  callback("Leonardo");
+};
+
+x(logGreeting);
 
 /*
   03
@@ -38,8 +42,8 @@ const greet = logGreeting("Leonardo");
 */
 
 const numbers = [3, 4, 10, 20];
-const isLessThanFive = (num) => num < 5;
-const lesserThanFive = numbers.filter(isLessThanFive);
+const getLessThanFive = (num) => num < 5;
+const lesserThanFive = numbers.filter(getLessThanFive);
 console.log(lesserThanFive);
 
 /*
@@ -49,11 +53,10 @@ console.log(lesserThanFive);
 */
 
 const prices = [12, 19, 7, 209];
+const getTotalPrice = (acc, price) => (acc += price);
+const totalPrice = prices.reduce(getTotalPrice, 0);
 
-const sumPrices = (pricesArray) =>
-  pricesArray.reduce((acc, price) => (acc += price), 0);
-
-console.log(`Preço total: ${sumPrices(prices)}`);
+console.log(`Preço total: ${totalPrice}`);
 
 /*
   05
@@ -63,7 +66,9 @@ console.log(`Preço total: ${sumPrices(prices)}`);
 */
 
 let car = { color: "amarelo" };
-car["color"] = "azul";
+let secondCar = car;
+secondCar.color = "azul";
+console.log(car.color, secondCar.color);
 
 /*
   06
@@ -102,33 +107,55 @@ console.log(exercise6("p1", 2, "p3"));
     - Se couber somente mais um livro, mostre a palavra "livro" (no singular) 
       na frase acima.
 */
+const getPluralOrSingular = (quantity, singular, plural) =>
+  quantity === 1 ? singular : plural;
+
+const getAvailableSpacesMessage = (spaces, booksIn) => {
+  const availableSpaces = spaces - booksIn;
+  const fitPluralOrSingular = getPluralOrSingular(
+    availableSpaces,
+    "cabe",
+    "cabem"
+  );
+  const bookPluralOrSingular = getPluralOrSingular(
+    availableSpaces,
+    "livro",
+    "livros"
+  );
+  return `Só ${fitPluralOrSingular} mais ${availableSpaces} ${bookPluralOrSingular}`;
+};
 
 let booksBox = {
   spaces: 5,
   booksIn: 0,
-  addBooks: (booksToAdd) => {
-    if (booksBox.spaces === 0) {
+  addBooks: (booksQuantity) => {
+    let { spaces } = booksBox;
+    const isBoxFilled = booksBox.booksIn === spaces;
+    const boxSpacesAreNotEnough = booksBox.booksIn + booksQuantity > spaces;
+
+    if (isBoxFilled) {
       return `A caixa já está cheia`;
-    } else if (booksToAdd > booksBox.spaces) {
-      return `Só cabe${booksBox.spaces === 1 ? "" : "m"} mais ${
-        booksBox.spaces
-      } livro${booksBox.spaces === 1 ? "" : "s"}`;
-    } else {
-      booksBox.spaces -= booksToAdd;
-      booksBox.booksIn += booksToAdd;
-      return `Já há '${booksBox.booksIn}' livro${
-        booksBox.booksIn === 1 ? "" : "s"
-      } na caixa`;
     }
+
+    if (boxSpacesAreNotEnough) {
+      return getAvailableSpacesMessage(spaces, booksBox.booksIn);
+    }
+
+    booksBox.booksIn += booksQuantity;
+
+    const bookPluralOrSingular = getPluralOrSingular(
+      booksBox.booksIn,
+      "livro",
+      "livros"
+    );
+    return `Já há '${booksBox.booksIn}' ${bookPluralOrSingular} na caixa`;
   },
 };
 
 console.log("Inserção nº1:", booksBox.addBooks(1));
-console.log("Inserção nº2:", booksBox.addBooks(1));
-console.log("Inserção nº3:", booksBox.addBooks(1));
-console.log("Inserção nº5:", booksBox.addBooks(3));
+console.log("Inserção nº2:", booksBox.addBooks(2));
+console.log("Inserção nº3:", booksBox.addBooks(3));
 console.log("Inserção nº4:", booksBox.addBooks(1));
-console.log("Inserção nº4:", booksBox.addBooks(2));
+console.log("Inserção nº5:", booksBox.addBooks(2));
 console.log("Inserção nº6:", booksBox.addBooks(1));
-console.log("Inserção nº4:", booksBox.addBooks(1));
-
+console.log("Inserção nº7:", booksBox.addBooks(1));
