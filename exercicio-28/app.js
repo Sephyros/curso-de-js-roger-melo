@@ -18,10 +18,15 @@
 
 const request = new XMLHttpRequest();
 request.addEventListener("readystatechange", () => {
-  if (request.readyState === 4) {
-    request.status === 200
-      ? console.log(request.responseText)
-      : console.log("Não foi possível obter os dados do pokémon");
+  const isRequestOK = request.readyState === 4 && request.status === 200;
+  const isRequestNotOk = request.readyState === 4;
+  if (isRequestOK) {
+    // console.log(request.responseText);
+    return;
+  }
+
+  if (isRequestNotOk) {
+    console.log("Não foi possível obter os dados do pokémon");
   }
 });
 request.open("GET", "https://pokeapi.co/api/v2/pokemon/pikachu");
@@ -42,15 +47,15 @@ request.send();
     - Quantos metros você caminhou (number iniciado em 0).
 */
 
-const personalInfo = {
+let person = {
   name: "Leonardo",
   surname: "Maciel",
-  gender: "Male",
+  gender: "Masculino",
   age: 32,
   height: 1.78,
   weight: 74.6,
   isWalking: false,
-  totalWalked: 25,
+  totalWalked: 0,
 };
 
 /*
@@ -62,12 +67,12 @@ const personalInfo = {
   - Após criar o método, adicione 5 anos à idade do objeto.
 */
 
-personalInfo.growUp = () => {
-  personalInfo.age++;
+person.growUp = () => {
+  person.age++;
 };
 
 for (let i = 0; i < 5; i++) {
-  personalInfo.growUp();
+  person.growUp();
 }
 
 /*
@@ -81,15 +86,13 @@ pessoa representada pelo objeto está, ou não, andando;
 método 4x, com diferentes metragens passadas por parâmetro.
 */
 
-personalInfo.jog = (value = 0) => {
-  personalInfo.totalWalked += value;
-  personalInfo.isWalking = true;
+person.walk = (value = 0) => {
+  person.totalWalked += value;
+  person.isWalking = true;
 };
 
-personalInfo.jog(3);
-personalInfo.jog(6);
-personalInfo.jog(9);
-personalInfo.jog(13);
+const meters = [3, 6, 9, 13];
+meters.forEach((meter) => person.walk(meter));
 
 /*
 05
@@ -108,22 +111,35 @@ por "a";
 "metro", no singular.
 */
 
-personalInfo.showInfo = () => {
-  const { name, surname, gender, age, height, weight, totalWalked } =
-    personalInfo;
-  const fullName = name.concat(" ", surname);
-  console.log(
-    `Oi. Eu sou ${gender === "Male" ? "o" : "a"} ${fullName}, tenho ${age} ${
-      age === 1 ? "ano" : "anos"
-    }, ${height} metros de altura, peso ${weight} quilos e, só hoje, eu já caminhei ${totalWalked} ${
-      totalWalked === 1 ? "metro" : "metros"
-    }.`
+const getPluralOrSingular = (quantity, singular, plural) =>
+  quantity === 1 ? singular : plural;
+
+person.showInfo = () => {
+  const { name, surname, gender, age, height, weight, totalWalked } = person;
+
+  const correctGender = gender === "Feminino" ? "a" : "o";
+  const AgePluralOrSingular = getPluralOrSingular(person.age, "ano", "anos");
+  const WalkedPluralOrSingular = getPluralOrSingular(
+    person.totalWalked,
+    "metro",
+    "metros"
   );
+  const heightMeterPluralOrSingular = getPluralOrSingular(
+    person.height,
+    "metro",
+    "metros"
+  );
+  const weightPluralOrSingular = getPluralOrSingular(
+    person.weight,
+    "quilo",
+    "quilos"
+  );
+
+  const fullName = name.concat(" ", surname);
+  return `Oi. Eu sou ${correctGender} ${fullName}, tenho ${age} ${AgePluralOrSingular}, ${height} ${heightMeterPluralOrSingular} de altura, peso ${weight} ${weightPluralOrSingular} e, só hoje, eu já caminhei ${totalWalked} ${WalkedPluralOrSingular}.`;
 };
 
-personalInfo.showInfo();
-
-console.log(personalInfo);
+console.log(person.showInfo());
 
 /*
   06
@@ -141,7 +157,7 @@ const isTruthyOrFalsy = (value) => {
   console.log(`The value ${value}:${typeof value} is ${Boolean(value)}`);
 };
 
-const falsyValues = [undefined, 0, false, "", "", ``, null, NaN];
+const falsyValues = [undefined, 0, false, "", ``, null, NaN];
 const truthyValues = [1, true, {}, [], " ", -7, () => {}, "false", "0"];
 
 falsyValues.forEach((value) => isTruthyOrFalsy(value));
@@ -166,7 +182,7 @@ truthyValues.forEach((value) => isTruthyOrFalsy(value));
   Dica: propriedades de objetos podem ser declaradas como strings.
 */
 
-function books(bookName) {
+function getBook(bookName) {
   const books = {
     "Sapiens: Uma Breve História da Humanidade": {
       pageNumber: 464,
@@ -184,6 +200,6 @@ function books(bookName) {
       publisher: "Editora Arqueiro",
     },
   };
-  return books[bookName];
+  return books[bookName] || books;
 }
-console.log(books("Kybalion"));
+console.log(getBook("Kybalion"));
