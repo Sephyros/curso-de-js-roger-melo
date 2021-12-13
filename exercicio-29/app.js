@@ -13,6 +13,50 @@
       executado quando o request anterior for finalizado.
 */
 
+const getUrl = (url, callback) => {
+  const request = new XMLHttpRequest();
+
+  request.addEventListener("readystatechange", () => {
+    const isRequestOk = request.readyState === 4 && request.status === 200;
+    const isRequestNotOk = request.readyState === 4;
+
+    if (isRequestOk) {
+      const data = JSON.parse(request.responseText);
+      callback(null, data);
+      return;
+    }
+
+    if (isRequestNotOk) {
+      callback("Não foi possível obter o Pokémon", null);
+    }
+  });
+
+  request.open("GET", "https://pokeapi.co/api/v2/pokemon/" + url);
+  request.send();
+};
+
+getUrl("bulbasaur", (error, data) => {
+  if (error) {
+    console.log(error);
+    return;
+  }
+  console.log(`Pokémon obtido: ${data.name}`);
+  getUrl("charmander", (error, data) => {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    console.log(`Pokémon obtido: ${data.name}`);
+    getUrl("squirtle", (error, data) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      console.log(`Pokémon obtido: ${data.name}`);
+    });
+  });
+});
+
 /*
   02
 
@@ -35,6 +79,15 @@
   curso, onde falaremos sobre TDD. Vá se aquecendo =)
 */
 
+const myMap = (array, callbackFn) => {
+  for (let i = 0; i < array.length; i++) {
+    array[i] = callbackFn(array[i]);
+  }
+  return array;
+};
+console.log(myMap([1, 2, 3], (number) => number * 2));
+console.log(myMap([1, 2, 3], (number) => number * 3));
+
 /*
   03
 
@@ -43,11 +96,13 @@
 */
 
 const person = {
-  name: 'Roger',
-  getName: () => this.name
-}
+  name: "Roger",
+  getName() {
+    return this.name;
+  },
+};
 
-// console.log(person.getName())
+console.log(person.getName());
 
 /*
   04
@@ -58,8 +113,10 @@ const person = {
     delas.
 */
 
-const x = 'x'
-// const x = 'y'
+const x = "x";
+if (true) {
+  const x = "y";
+}
 
 /*
   05
@@ -69,13 +126,11 @@ const x = 'x'
 */
 
 const getFullName = (user) => {
-  const firstName = user.firstName
-  const lastName = user.lastName
+  const { firstName, lastName } = user;
+  return `${firstName} ${lastName}`;
+};
 
-  return `${firstName} ${lastName}`
-}
-
-console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
+console.log(getFullName({ firstName: "Afonso", lastName: "Solano" }));
 
 /*
   06
@@ -91,6 +146,43 @@ console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
   - Exiba o hexadecimal de 8 cores diferentes usando a função criada acima.
 */
 
+const convertToHex = (colorName) => {
+  const colorDictionary = [
+    { black: "#000000" },
+    { white: "#FFFFFF" },
+    { gray: "#888888" },
+    { red: "#FF0000" },
+    { green: "#00FF00" },
+    { blue: "#0000FF" },
+    { purple: "#AA00FF" },
+    { yellow: "#FFFF00" },
+    { teal: "#00FFFF" },
+    { pink: "#FF00FF" },
+  ];
+  const colorHex = colorDictionary.filter((color) => color[colorName])[0][
+    colorName
+  ];
+  if (colorDictionary.some((value) => value[colorName])) {
+    console.log(`O hexadecimal para a cor ${colorName} é ${colorHex}`);
+    return;
+  }
+  console.log(`Não temos o equivalente hexadecimal para ${colorName}`);
+};
+
+const colorNames = [
+  "black",
+  "white",
+  "gray",
+  "red",
+  "green",
+  "blue",
+  "purple",
+  "yellow",
+  "teal",
+  "pink",
+];
+
+colorNames.forEach((color) => convertToHex(color));
 
 /*
   07
@@ -108,10 +200,17 @@ console.log(getFullName({ firstName: 'Afonso', lastName: 'Solano' }))
 */
 
 const people = [
-  { id: 5 , name: 'Angelica', age: 18, federativeUnit: 'Pernambuco' },
-  { id: 81, name: 'Thales', age: 19, federativeUnit: 'São Paulo' },
-  { id: 47, name: 'Ana Carolina', age: 18, federativeUnit: 'Alagoas' },
-  { id: 87, name: 'Felipe', age: 18, federativeUnit: 'Minas Gerais' },
-  { id: 9 , name: 'Gabriel', age: 20, federativeUnit: 'São Paulo' },
-  { id: 73, name: 'Aline', age: 19, federativeUnit: 'Brasília' }
-]
+  { id: 5, name: "Angelica", age: 18, federativeUnit: "Pernambuco" },
+  { id: 81, name: "Thales", age: 19, federativeUnit: "São Paulo" },
+  { id: 47, name: "Ana Carolina", age: 18, federativeUnit: "Alagoas" },
+  { id: 87, name: "Felipe", age: 18, federativeUnit: "Minas Gerais" },
+  { id: 9, name: "Gabriel", age: 20, federativeUnit: "São Paulo" },
+  { id: 73, name: "Aline", age: 19, federativeUnit: "Brasília" },
+];
+
+const myObj = {};
+people.map(({ age }) => {
+  age in myObj ? myObj[age]++ : (myObj[age] = 1);
+});
+
+console.log(myObj);
