@@ -13,7 +13,7 @@
       executado quando o request anterior for finalizado.
 */
 
-const getUrl = (url, callback) => {
+const getPokemon = (url, callback) => {
   const request = new XMLHttpRequest();
 
   request.addEventListener("readystatechange", () => {
@@ -31,28 +31,24 @@ const getUrl = (url, callback) => {
     }
   });
 
-  request.open("GET", "https://pokeapi.co/api/v2/pokemon/" + url);
+  request.open("GET", url);
   request.send();
 };
 
-getUrl("bulbasaur", (error, data) => {
-  if (error) {
-    console.log(error);
-    return;
-  }
-  console.log(`Pokémon obtido: ${data.name}`);
-  getUrl("charmander", (error, data) => {
-    if (error) {
-      console.log(error);
-      return;
-    }
-    console.log(`Pokémon obtido: ${data.name}`);
-    getUrl("squirtle", (error, data) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-      console.log(`Pokémon obtido: ${data.name}`);
+const logPokemonData = (error, data) =>
+  error ? console.log(error) : console.log(`Pokémon obtido: ${data.name}`);
+
+const getPokemonUrl = (id) => `https://pokeapi.co/api/v2/pokemon/${id}`;
+const bulbasaur = getPokemonUrl(1);
+const charmander = getPokemonUrl(4);
+const squirtle = getPokemonUrl(7);
+
+getPokemon(bulbasaur, (error, data) => {
+  logPokemonData(error, data);
+  getPokemon(charmander, (error, data) => {
+    logPokemonData(error, data);
+    getPokemon(squirtle, (error, data) => {
+      logPokemonData(error, data);
     });
   });
 });
@@ -80,11 +76,17 @@ getUrl("bulbasaur", (error, data) => {
 */
 
 const myMap = (array, callbackFn) => {
-  for (let i = 0; i < array.length; i++) {
-    array[i] = callbackFn(array[i]);
-  }
-  return array;
+  let newArray = [];
+
+  const addNewItemToNewArray = (item) => {
+    const newItem = callbackFn(item);
+    newArray.push(newItem);
+  };
+
+  array.forEach(addNewItemToNewArray);
+  return newArray;
 };
+
 console.log(myMap([1, 2, 3], (number) => number * 2));
 console.log(myMap([1, 2, 3], (number) => number * 3));
 
@@ -97,9 +99,7 @@ console.log(myMap([1, 2, 3], (number) => number * 3));
 
 const person = {
   name: "Roger",
-  getName() {
-    return this.name;
-  },
+  getName: () => person.name,
 };
 
 console.log(person.getName());
@@ -114,9 +114,13 @@ console.log(person.getName());
 */
 
 const x = "x";
-if (true) {
+
+const getX = () => {
   const x = "y";
-}
+  return x;
+};
+
+console.log(x, getX());
 
 /*
   05
@@ -125,10 +129,7 @@ if (true) {
     conseguir.
 */
 
-const getFullName = (user) => {
-  const { firstName, lastName } = user;
-  return `${firstName} ${lastName}`;
-};
+const getFullName = ({ firstName, lastName }) => `${firstName} ${lastName}`;
 
 console.log(getFullName({ firstName: "Afonso", lastName: "Solano" }));
 
@@ -146,30 +147,20 @@ console.log(getFullName({ firstName: "Afonso", lastName: "Solano" }));
   - Exiba o hexadecimal de 8 cores diferentes usando a função criada acima.
 */
 
-const convertToHex = (colorName) => {
-  const colorDictionary = [
-    { black: "#000000" },
-    { white: "#FFFFFF" },
-    { gray: "#888888" },
-    { red: "#FF0000" },
-    { green: "#00FF00" },
-    { blue: "#0000FF" },
-    { purple: "#AA00FF" },
-    { yellow: "#FFFF00" },
-    { teal: "#00FFFF" },
-    { pink: "#FF00FF" },
-  ];
-  const colorHex = colorDictionary.filter((color) => color[colorName])[0][
-    colorName
-  ];
-  if (colorDictionary.some((value) => value[colorName])) {
-    console.log(`O hexadecimal para a cor ${colorName} é ${colorHex}`);
-    return;
-  }
-  console.log(`Não temos o equivalente hexadecimal para ${colorName}`);
+const convertToHex = (color) => {
+  const colors = {
+    black: "#000000",
+    white: "#FFFFFF",
+    gray: "#888888",
+    red: "#FF0000",
+    green: "#00FF00",
+  };
+  return colors[color]
+    ? `O hexadecimal para a cor ${color} é ${colors[color]}`
+    : `Não temos o equivalente hexadecimal para ${color}`;
 };
 
-const colorNames = [
+const colors = [
   "black",
   "white",
   "gray",
@@ -178,11 +169,10 @@ const colorNames = [
   "blue",
   "purple",
   "yellow",
-  "teal",
-  "pink",
 ];
 
-colorNames.forEach((color) => convertToHex(color));
+const logColorMessage = (color) => console.log(convertToHex(color));
+colors.forEach(logColorMessage);
 
 /*
   07
@@ -208,9 +198,10 @@ const people = [
   { id: 73, name: "Aline", age: 19, federativeUnit: "Brasília" },
 ];
 
-const myObj = {};
-people.map(({ age }) => {
-  age in myObj ? myObj[age]++ : (myObj[age] = 1);
-});
+const createOrIncremenAgeFrequency = (acc, { age }) => {
+  acc[age] = acc[age] + 1 || 1;
+  return acc;
+};
 
-console.log(myObj);
+const agesFrequency = people.reduce(createOrIncremenAgeFrequency, {});
+console.log(agesFrequency);
