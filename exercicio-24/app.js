@@ -36,9 +36,9 @@ console.log(numbers.includes(635));
     Por que? 
 
     Se futuramente a marcação HTML da aplicação mudar, se o parentElement mudar, 
-    o código que foi implementado na aula não funcionará.
+    o código que foi implementado não funcionará.
     
-    Dica: pesquise por dataset.
+    Dica: pesquise por dataset e atributos data.
 */
 
 /* A questão é vaga para quem não conhece sobre as mudanças que poderiam acontecer
