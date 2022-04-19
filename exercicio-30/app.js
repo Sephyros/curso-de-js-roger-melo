@@ -31,12 +31,8 @@ const getUsers = (url) =>
   });
 
 getUsers("https://jsonplaceholder.typicode.com/users")
-  .then((value) => {
-    console.log(value);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  .then(console.log)
+  .catch(console.log);
 
 /*
   02
@@ -52,15 +48,30 @@ getUsers("https://jsonplaceholder.typicode.com/users")
   - Se o operador não for válido, retorne a mensagem "Operação inválida."
 */
 
-const calculator = (oper) => {
-  if (oper != "+" || oper != "-" || oper != "*" || oper != "/" || oper != "%") {
-    console.log("Operação inválida.");
-    return;
-  }
-  console.log("realizar oper");
+const getResultMessage = (num1, operation, num2, formula) =>
+  `Resultado da operação: ${num1} ${operation} ${num2} = ${formula}.`;
+
+const calculator = (operation) => (num1, num2) => {
+  const operations = {
+    "+": getResultMessage(num1, operation, num2, num1 + num2),
+    "-": getResultMessage(num1, operation, num2, num1 - num2),
+    "*": getResultMessage(num1, operation, num2, num1 * num2),
+    "/": getResultMessage(num1, operation, num2, num1 / num2),
+    "%": getResultMessage(num1, operation, num2, num1 % num2),
+  };
+  return operations[operation] || 'Operação inválida.';
 };
 
-// DESISTO
+const sum = calculator("+");
+const subtraction = calculator("-");
+const multiplication = calculator("*");
+const division = calculator("/");
+const mod = calculator("%");
+console.log(sum(2, 3));
+console.log(subtraction(10, 7));
+console.log(multiplication(2, 3));
+console.log(division(20, 5));
+console.log(mod(4, 2));
 
 /*
   03
