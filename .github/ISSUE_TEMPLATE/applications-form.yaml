@@ -1,5 +1,5 @@
 name: 🔥Aplicação
-description: Issues relacionadas às aplicações desenvolvidas no treinamento
+description: Issues relacionadas a análises de aplicações desenvolvidas no treinamento
 title: "Aplicação: [NOME_DA_APLICAÇÃO]"
 labels: [🔥aplicação]
 body:
@@ -33,8 +33,8 @@ body:
   - type: input
     id: repo-link
     attributes:
-      label: Link do repositório da aplicação
-      placeholder: Insira aqui o link do repositório da sua aplicação
+      label: Link do repositório da aplicação (ou pasta pública no Google Drive)
+      placeholder: Insira aqui o link do repositório ou pasta no Drive
     validations:
       required: true
   - type: textarea

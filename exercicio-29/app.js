@@ -70,9 +70,6 @@ getPokemon(bulbasaur, (error, data) => {
       - "Correção dos exercícios da aula 01 da etapa 08" - Aula 02-01 da etapa 
         08;
     2) Pesquisar no MDN.
-  
-  Reforço: este tipo de exercício será frequente em etapas mais avançadas do 
-  curso, onde falaremos sobre TDD. Vá se aquecendo =)
 */
 
 const myMap = (array, callbackFn) => {
