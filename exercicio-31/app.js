@@ -8,6 +8,18 @@
     do GitHub.
 */
 
+const getData = async () => {
+  const response = await fetch("https://api.github.com/users/Sephyros");
+  return await response.json();
+};
+
+const getUser = async () => {
+  const user = await getData();
+  console.log(user);
+};
+
+getUser();
+
 /*
   02
 
@@ -16,7 +28,11 @@
   - Exiba esse novo array no console.
 */
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const divisibleBy2Or3 = numbers.filter(
+  (number) => number % 2 == 0 || number % 3 == 0
+);
+console.log(divisibleBy2Or3);
 
 /*
   03
@@ -31,6 +47,9 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     - Natália => "PNaPtáPlia";
     - Rafaela => "PRaPfaPePla".
 */
+
+const silabicName = ["Le", "o", "nar", "do"];
+console.log(`P${silabicName.join("P")}`);
 
 /*
   04
@@ -47,6 +66,11 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   Dica: pesquise pelo método split.
 */
 
+const myName = "Leonardo".split("");
+myName.forEach((letter, index) =>
+  console.log(`"${letter}" é  a ${index + 1}ª letra do meu nome\n`)
+);
+
 /*
   05
 
@@ -59,6 +83,14 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   Dica: pesquise pelo método Object.keys().
 */
+
+const myData = {
+  name: String,
+  lastName: String,
+  age: Number,
+};
+
+console.log(Object.keys(myData));
 
 /*
   06
@@ -73,7 +105,11 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   - Utilize o array abaixo para testar a função.
 */
 
-const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
+const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60];
+const countOccurences = (array, searchedNumber) => {
+  return array.filter((arrayItem) => arrayItem === searchedNumber).length;
+};
+console.log(countOccurences(scores, 100));
 
 /*
   07
@@ -98,3 +134,25 @@ const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60]
   Dica: lembre-se que o método filter inclui o item em questão no novo array 
   que está sendo gerado **apenas** se a função retorna um valor truthy.
 */
+
+const myFilter = (array, callback) => {
+  const newArray = [];
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    callback(element, (cbIndex = index), (cbArray = array))
+      ? newArray.push(element)
+      : null;
+  }
+  return newArray;
+};
+
+console.log(myFilter([1, 2, 3], (item) => item));
+console.log(myFilter([0, 1, 2], (item) => item));
+console.log(myFilter([1, 2, 3], (item) => item < 2));
+console.log(myFilter([1, 2, 3, 5], (item, index) => item === index + 1));
+console.log(
+  myFilter(
+    [1, 2, 3, 2, 1, 5],
+    (item, index, array) => index === array.indexOf(item)
+  )
+);
