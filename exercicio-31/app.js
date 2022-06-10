@@ -8,17 +8,14 @@
     do GitHub.
 */
 
-const getData = async () => {
-  const response = await fetch("https://api.github.com/users/Sephyros");
-  return await response.json();
+const getData = async (username) => {
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  return response.json();
 };
 
-const getUser = async () => {
-  const user = await getData();
-  console.log(user);
-};
+const getUser = async (username) => console.log(await getData(username));
 
-getUser();
+getUser("Sephyros");
 
 /*
   02
@@ -29,10 +26,9 @@ getUser();
 */
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const divisibleBy2Or3 = numbers.filter(
-  (number) => number % 2 == 0 || number % 3 == 0
-);
-console.log(divisibleBy2Or3);
+const getDivisibleBy2Or3 = (numbers) =>
+  numbers.filter((number) => number % 2 == 0 || number % 3 == 0);
+console.log(getDivisibleBy2Or3(numbers));
 
 /*
   03
@@ -48,8 +44,18 @@ console.log(divisibleBy2Or3);
     - Rafaela => "PRaPfaPePla".
 */
 
-const silabicName = ["Le", "o", "nar", "do"];
-console.log(`P${silabicName.join("P")}`);
+const leonardo = ["Le", "o", "nar", "do"];
+const roger = ["Ra", "fa", "e", "la"];
+const natalia = ["Na", "ta", "lia"];
+const rafaela = ["Ra", "fa", "e", "la"];
+
+// const getNameInPLanguage = (name) => `P${name.join("P")}`;
+
+const rogerGetNameInPLanguage = (name) =>
+  name.reduce((acc, syllable) => `${acc}P${syllable}`, "");
+
+console.log(rogerGetNameInPLanguage(leonardo));
+// console.log(rogerGetNameInPLanguage(leonardo));
 
 /*
   04
@@ -66,10 +72,15 @@ console.log(`P${silabicName.join("P")}`);
   Dica: pesquise pelo método split.
 */
 
-const myName = "Leonardo".split("");
-myName.forEach((letter, index) =>
-  console.log(`"${letter}" é  a ${index + 1}ª letra do meu nome\n`)
-);
+const name = "Leonardo";
+const logSplittedName = (name) =>
+  name
+    .split("")
+    .forEach((letter, index) =>
+      console.log(`"${letter}" é  a ${index + 1}ª letra do meu nome.`)
+    );
+
+logSplittedName(name);
 
 /*
   05
@@ -85,9 +96,9 @@ myName.forEach((letter, index) =>
 */
 
 const myData = {
-  name: String,
-  lastName: String,
-  age: Number,
+  name: "Leonardo",
+  lastName: "Maciel",
+  age: 33,
 };
 
 console.log(Object.keys(myData));
@@ -106,9 +117,8 @@ console.log(Object.keys(myData));
 */
 
 const scores = [100, 90, 85, 100, 60, 85, 100, 90, 55, 75, 60];
-const countOccurences = (array, searchedNumber) => {
-  return array.filter((arrayItem) => arrayItem === searchedNumber).length;
-};
+const countOccurences = (array, value) =>
+  array.reduce((acc, item) => (item === value ? acc + 1 : acc), 0);
 console.log(countOccurences(scores, 100));
 
 /*
@@ -134,7 +144,7 @@ console.log(countOccurences(scores, 100));
   Dica: lembre-se que o método filter inclui o item em questão no novo array 
   que está sendo gerado **apenas** se a função retorna um valor truthy.
 */
-
+/*
 const myFilter = (array, callback) => {
   const newArray = [];
   for (let index = 0; index < array.length; index++) {
@@ -144,14 +154,28 @@ const myFilter = (array, callback) => {
       : null;
   }
   return newArray;
+};*/
+
+const filter = (array, func) => {
+  let newArray = [];
+
+  const filterItem = (item, index) => {
+    const itemShouldBeAdded = func(item, index, array);
+
+    if (itemShouldBeAdded) {
+      newArray.push(item);
+    }
+  };
+  array.forEach(filterItem);
+  return newArray;
 };
 
-console.log(myFilter([1, 2, 3], (item) => item));
-console.log(myFilter([0, 1, 2], (item) => item));
-console.log(myFilter([1, 2, 3], (item) => item < 2));
-console.log(myFilter([1, 2, 3, 5], (item, index) => item === index + 1));
+console.log(filter([1, 2, 3], (item) => item));
+console.log(filter([0, 1, 2], (item) => item));
+console.log(filter([1, 2, 3], (item) => item < 2));
+console.log(filter([1, 2, 3, 5], (item, index) => item === index + 1));
 console.log(
-  myFilter(
+  filter(
     [1, 2, 3, 2, 1, 5],
     (item, index, array) => index === array.indexOf(item)
   )
