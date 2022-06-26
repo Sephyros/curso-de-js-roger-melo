@@ -5,6 +5,20 @@ html {
 }
 
 img {
-  width: 100%;
+  width: 10%;
   max-width: 100%;
+}
+
+.out {
+    height: 400px;
+    width: 450px;
+    display: table-cell;
+    vertical-align: bottom;
+    text-align: center;
+    border: 1px solid #AAAAAA;
+}
+.gif {
+  width: 450px;
+  display: inline-block;
+  border: 1px solid #666666;
 }
