@@ -21,42 +21,51 @@
   - Ignore os avisos no console. Para limpá-lo, pressione "ctrl + L".
 */
 
-const myKey = "eGrc9mA6FO73rQ4cP968zuw2XkCXfokO";
-const form = document.getElementsByTagName("form")[0];
-const input = document.getElementById("search");
-const divOut = document.querySelector(".out");
-const urlsArray = [];
+const form = document.querySelector("form");
+const GIFsContainer = document.querySelector("div");
+
+const APIKey = "eGrc9mA6FO73rQ4cP968zuw2XkCXfokO";
+
+const getGIPHYApiUrl = (GIFName) =>
+  `https://api.giphy.com/v1/gifs/search?api_key=${APIKey}&limit=1&q=${GIFName}`;
+
+const generateGIFImg = (downsizedGIFUrl, GIFData) => {
+  const img = document.createElement("img");
+
+  img.setAttribute("src", downsizedGIFUrl);
+  img.setAttribute("title", GIFData.data[0].title);
+
+  return img;
+};
+
+const fetchGIF = async (inputValue) => {
+  try {
+    const GIPHYApiUrl = getGIPHYApiUrl(inputValue);
+    const response = await fetch(GIPHYApiUrl);
+
+    if (!response.ok) {
+      throw new Error("Não foi possível obter os dados");
+    }
+    return response.json();
+  } catch (error) {
+    alert(`eRRO: ${error.message}`);
+  }
+};
+
+const insertGIFIntoDOM = async (inputValue) => {
+  const GIFData = await fetchGIF(inputValue);
+  const downsizedGIFUrl = GIFData.data[0].images.downsized.url;
+  const img = generateGIFImg(downsizedGIFUrl, GIFData);
+
+  GIFsContainer.insertAdjacentElement("afterbegin", img);
+
+  form.reset();
+};
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  getGif(input.value);
-  clearInput();
+
+  const inputValue = event.target.search.value;
+
+  insertGIFIntoDOM(inputValue);
 });
-
-const getGif = async (input) => {
-  const response = await fetch(
-    `https://api.giphy.com/v1/gifs/search?api_key=${myKey}&limit=1&q=${input}`
-  );
-  const responseData = await response.json();
-  const webpUrl = responseData.data[0].images.original.url;
-  urlsArray.push(webpUrl);
-  refreshGifs(urlsArray);
-};
-
-const refreshGifs = (array) => {
-  divOut.replaceChildren();
-  array
-    .slice()
-    .reverse()
-    .forEach((item) => {
-      const searchedImage = document.createElement("img");
-      searchedImage.setAttribute("src", item);
-      searchedImage.setAttribute("class", "gif");
-      divOut.appendChild(searchedImage);
-    });
-};
-
-const clearInput = () => {
-  input.value = "";
-  input.focus();
-};
