@@ -28,7 +28,7 @@ console.log(sum(...numbers))
   - Descomente a div com a class "accordion", no index.html;
   - Quando um dos 3 itens do accordion for clicado exiba, abaixo do item, 
     o texto correspondente. Este é o resultado final:
-    https://youtu.be/4xnYqcqaSnI
+    https://vimeo.com/752350703/9b01da98d3
   
   Leia a dica abaixo apenas se achar necessário.
 
@@ -88,7 +88,7 @@ const aString = 'O Curso de JavaScript Roger Melo funciona com turmas fechadas, 
 
   - Descomente a div com a class "intro", no index.html;
   - O desafio neste exercício é implementar um "efeito digitação", como o deste
-    exemplo: https://youtu.be/_bVIHj3uX6k;
+    exemplo: https://vimeo.com/752356051/e402d40a7b
 
   Abaixo tem o passo a passo de uma das formas de fazer. Siga-o, caso tenha
   dificuldades.

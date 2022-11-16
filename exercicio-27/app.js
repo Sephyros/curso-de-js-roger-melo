@@ -63,6 +63,7 @@ console.log(`Preço total: ${totalPrice}`);
 
   - Abaixo da declaração do objeto "car", modifique a cor do carro para 'azul';
   - Não insira `car.color = azul`.
+  - Não insira `car['color'] = azul`.
 */
 
 let car = { color: "amarelo" };
