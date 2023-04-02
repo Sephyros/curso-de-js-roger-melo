@@ -5,7 +5,7 @@
   - Solucione esse problema sem declarar uma constante "book".
 */
 
-// console.log(book)
+console.log(typeof book)
 
 /*
   02
@@ -17,6 +17,11 @@
   - Implemente a função da forma mais concisa que você conseguir.
 */
 
+function q2F(array) {
+  return array.length === 3 ? [array[2], array[0]] : 'array must have 3 items.'
+}
+console.log(q2F([1, 2, 3]))
+
 /*
   03
 
@@ -25,10 +30,13 @@
 */
 
 const topics = [
-  { id: 1, name: 'Artes & cultura'},
-  { id: 2, name: 'Negócios & finanças'},
-  { id: 3, name: 'Carreiras'}
+  { id: 1, name: 'Artes & cultura' },
+  { id: 2, name: 'Negócios & finanças' },
+  { id: 3, name: 'Carreiras' }
 ]
+
+const [, , { name }] = topics
+console.log(name)
 
 /*
   04
@@ -40,6 +48,8 @@ const topics = [
 
 const colors = ['#FF00FF', ['#FF0D0D', '#0AFA00', '#011EFA'], '#7BF0FF']
 
+const [, [red, green, blue]] = colors
+
 /*
   05
 
@@ -47,15 +57,19 @@ const colors = ['#FF00FF', ['#FF0D0D', '#0AFA00', '#011EFA'], '#7BF0FF']
   - Observe que ela recebe 2 argumentos, um objeto e uma string;
   - Dentro da declaração da função:
     - Faça um destructuring no objeto recebido no 1º argumento;
-    - No destructuring, nomeie de forma dinâmica a const que você está 
+    - No destructuring, nomeie de forma dinâmica a const que você está
       declarando, usando o 2º argumento que a invocação da função recebeu.
       Você já conhece a sintaxe que nomeia de forma dinâmica;
     - Atribua "desconhecido" como valor default da const do destructuring;
     - Faça a função retornar "Olá, meu nome é [NOME]!".
 */
+function greet(object, str) {
+  const { [str]: userName = 'desconhecido' } = object
+  return `Olá, meu nome é ${userName}!`
+}
 
-// console.log(greet({ name: 'Roger' }, 'name'))
-// console.log(greet({}, 'personName'))
+console.log(greet({ name: 'Roger' }, 'name'))
+console.log(greet({}, 'personName'))
 
 /*
   06
