@@ -5,7 +5,7 @@
   - Solucione esse problema sem declarar uma constante "book".
 */
 
-console.log(typeof book)
+console.log(book)
 
 /*
   02
@@ -17,10 +17,8 @@ console.log(typeof book)
   - Implemente a função da forma mais concisa que você conseguir.
 */
 
-function q2F(array) {
-  return array.length === 3 ? [array[2], array[0]] : 'array must have 3 items.'
-}
-console.log(q2F([1, 2, 3]))
+const swap = ([first, , third]) => [third, first]
+console.log(swap([1, 2, 3]))
 
 /*
   03
