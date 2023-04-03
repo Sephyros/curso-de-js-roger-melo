@@ -12,6 +12,9 @@
     versão deve fazer o mesmo que a função anterior faz, mas de forma diferente.
 */
 
+const reverse = string => string.split('').reverse().join('')
+console.log(reverse("123abc"))
+
 /*
   02
   
@@ -21,11 +24,7 @@
 const numbers = [5, 20, 7, 32, 47, 15, 83, 91, 27, 33]
 let foundNumber = false
 
-numbers.forEach(number => {
-  if (number === 15) {
-    foundNumber = true
-  }
-})
+foundNumber = numbers.includes(15)
 
 console.log(foundNumber)
 
